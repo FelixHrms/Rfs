@@ -1,0 +1,1291 @@
+\documentclass[english, 12pt, oneside]{article}
+
+
+% Page geometry and layout
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{layout}
+
+% Math packages
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% Text and language
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\usepackage{csquotes}
+\usepackage{soul}
+
+% Bibliography
+\usepackage[longnamesfirst, authoryear, round]{natbib}
+
+% Tables and figures
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{dcolumn}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[font=small,labelfont=bf]{caption} % RFS: font size 11 or larger
+% Colors and styling
+\usepackage{color, colortbl}
+\usepackage{yfonts}
+\usepackage{titlesec}
+\usepackage{setspace}
+\doublespacing % RFS: double-spaced, max. 28 lines per page
+
+% Misc functionality
+\usepackage{comment}
+\usepackage{lscape}
+\usepackage{pdflscape}
+\usepackage{changepage}
+\usepackage{lipsum}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\sisetup{input-signs = {+-(}}
+\usepackage{eurosym}
+\usepackage{textcomp}
+\usepackage[toc]{appendix}
+\usepackage{pifont}
+%\pagestyle{empty} % page numbers
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.75}
+
+% Load hyperref last
+\usepackage[hyperfootnotes=true, urlcolor=darkred]{hyperref}
+
+% Colors
+\definecolor{darkred}{rgb}{0.6,0.0,0.0}
+\definecolor{orange}{rgb}{1,0.5,0}
+\definecolor{Gray}{gray}{0.9}
+\definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+
+% Hyperref setup (no author metadata: anonymous submission)
+\hypersetup{
+    pdftitle={The International Dimension of Repo: Five Facts},
+    pdfauthor={},
+    pdfsubject={},
+    pdfkeywords={},
+    colorlinks=true,
+    raiselinks=true,
+    breaklinks=false,
+    linkcolor=darkred,
+    anchorcolor=darkred,
+    citecolor=darkred
+}
+
+% Custom column types
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+% Regression table helpers: decimal-aligned columns with significance stars
+\newcommand{\sym}[1]{\ifmmode^{#1}\else\textsuperscript{#1}\fi}
+\newcolumntype{g}{>{\columncolor{Gray}\centering\arraybackslash}X}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+\newcolumntype{.}{D{.}{.}{-1}}
+
+% Text formatting
+
+% Section formatting
+\titleformat{\section}
+    {\large\bf\centering\sc}
+    {\thesection.}
+    {1em}
+    {}
+\titleformat{\subsection}
+    {\sl}
+    {\thesubsection.}
+    {1em}
+    {}
+\titleformat{\subsubsection}
+    {\sl}
+    {\thesubsubsection.}
+    {1em}
+    {}
+
+% Counter settings
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thetable}{\Roman{table}}
+
+
+% Custom commands
+\newcommand{\cs}[1]{{\color{blue}\bf CS: #1}}
+\newcommand{\ltab}{\raggedright\arraybackslash}
+\newcommand{\ctab}{\centering\arraybackslash}
+\newcommand{\rtab}{\raggedleft\arraybackslash}
+\newcommand{\Qmeas}{\mathbb{Q}}
+\newcommand{\Pmeas}{\mathbb{P}}
+\newcommand{\brac}[1]{\left ( #1 \right )}
+\newcommand{\brak}[1]{\left [ #1 \right ]}
+\newcommand{\brat}[1]{\left \{ #1 \right \}}
+\newcommand{\evt}[2]{\mathbb{E}^{\Pmeas}_{#1}\brak{#2}}
+\newcommand{\evqt}[2]{\mathbb{E}^{\Qmeas}_{#1}\brak{#2}}
+\newcommand{\ev}[2]{\mathbb{E}_{#1}\brak{#2}}
+\newcommand{\rev}[1]{\textcolor{orange}{\textbf{\emph{#1}}}}
+\newcommand{\MS}[1]{\textcolor{orange}{\textbf{\tt{#1}}}}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqno}{\begin{equation*}}
+\newcommand{\eeqno}{\end{equation*}}
+\newcommand{\mbb}{\mathbb}
+\newcommand{\mca}{\mathcal}
+\newcommand{\msc}{\mathscr}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+\newcommand{\bit}{\begin{itemize}}
+\newcommand{\eit}{\end{itemize}}
+\newcommand{\beqn}{\begin{eqnarray}}
+\newcommand{\eeqn}{\end{eqnarray}}
+\newcommand{\nono}{\nonumber}
+\newcommand{\beqnn}{\begin{eqnarray*}}
+\newcommand{\eeqnn}{\end{eqnarray*}}
+\newcommand{\lvs}{\vspace{0.4cm}}
+\newcommand{\svs}{\vspace{0.2cm}}
+\newcommand{\mbbe}{\mathbb{E}}
+\newcommand{\mbbv}{\mathbb{V}}
+\newcommand{\mbbcv}{\mathbb{CV}}
+\newcommand{\mc}{\multicolumn}
+\newcommand{\mrev}[1]{\textcolor{darkred}{{\textsf{#1}}}}
+\newcommand{\mgreen}[1]{\textcolor{darkgreen}{{\textsf{#1}}}}
+\newcommand{\mscom}[1]{\colorbox{yellow}{\parbox{0.95\linewidth}{\scriptsize{{[MS}: #1\textbf{]}}}}}
+\newcommand{\mutlicomment}[1]{}
+
+
+\newcommand{\ascom}[1]{\colorbox{yellow}{\parbox{0.95\linewidth}{\scriptsize{{ [AS}: #1 \textbf{]}}}}}
+\newcommand{\ktcom}[1]{\colorbox{GreenYellow}{\parbox{0.95\linewidth}{\scriptsize{{ [KT}: #1\textbf{]}}}}}
+\newcommand{\fhcom}[1]{\colorbox{red}{\parbox{0.95\linewidth}{\scriptsize{{ [FH}: #1 \textbf{]}}}}}
+\newcommand{\frev}[1]{\textcolor{red}{{\textsf{#1}}}}
+
+% Alt text for figure accessibility (required by RFS/OUP), placed directly under each figure legend
+\newcommand{\alttext}[1]{\par\vspace{0.4em}{\small\noindent\parbox{\textwidth}{\textit{Alt text:} #1}}}
+
+% Footnote text at 11pt (RFS: font size 11 or larger); footnote marks unchanged
+\makeatletter
+\renewcommand\@makefntext[1]{\parindent 1em\noindent\hb@xt@1.8em{\hss\@makefnmark}\small #1}
+\makeatother
+
+\begin{document}
+
+
+% ANONYMOUS FIRST PAGE (RFS guidelines): title and abstract (max. 100 words), no author
+% names, affiliations, acknowledgments, or dates. Author details are on the separate title page.
+\pagenumbering{arabic}
+\renewcommand{\refname}{References}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\vspace*{1cm}
+\begin{center}
+{\LARGE\textbf{The International Dimension of Repo:\\[6pt] Five Facts}}
+\end{center}
+
+\vspace{1.5cm}
+
+\centerline{\textbf{Abstract}}
+\vspace{0.3cm}
+
+\begin{spacing}{1.9}
+\noindent
+International dollar funding has repeatedly caused global financial instability, yet its offshore repo segment remains opaque. We provide the first comprehensive transaction-level account of this market, using regulatory microdata on the repo activity of euro area entities, and document five facts, each supported by (quasi-)causal evidence. Euro area banks are major offshore dollar intermediaries and expand lending when US banks are stressed. Collateral, not cash alone, organizes this market: collateral-driven trades dominate, term repos are common, banking groups reallocate scarce securities internally, and haircuts are often zero or negative. Shocks induce substitution across currencies, maturities, and counterparties.
+
+\vspace{0.8cm}
+\noindent
+\textbf{JEL classification:} G15; G21; G23\\
+\textbf{Keywords:} Repo market; US dollar funding; Haircuts; Bank intermediation
+\end{spacing}
+
+\end{titlepage}
+
+% Reset page counter so the body of the paper starts at page 1.
+\setcounter{page}{1}
+
+
+\clearpage
+
+\section{Introduction}
+
+Banks outside the United States run dollar balance sheets measured in the trillions and fund them in markets beyond the reach of US supervisors and US data collection.
+In the Eurodollar market that evolved in the 1960s, this cross-border dollar funding was usually unsecured, often at multi-month maturities, and European banking groups routed much of the activity through their branch networks. Since the global financial crisis, secured borrowing against collateral (repo) has replaced unsecured interbank lending, with the discontinuation of LIBOR as the clearest sign of that shift. The size and structure of these offshore US dollar funding markets are crucially important for financial stability. Short-term cross-border dollar claims played a major role in the 2008 crisis, in the March 2020 ``dash for cash,'' and in the March 2023 banking turmoil.
+Yet we know very little about this international dimension of repo, that is, about the size and structure of the market for dollar funding outside the United States.
+
+Our paper addresses this gap by drawing on novel regulatory microdata from the European Central Bank's Securities Financing Transactions Datastore, covering essentially all USD repo activity of euro area (EA) entities, their foreign branches, and the euro area offices of non-EA banks.
+Because these data cut across jurisdictional boundaries, they allow us to significantly extend the reach of prior work which was restricted to single currencies, single clearing mechanisms, or US-resident counterparties.\footnote{Because reporting is required regardless of currency, we observe dollar activity at the same level of detail as euro activity, including dollar trades between euro area entities and with British and US counterparts.}
+To our knowledge, ours is the first comprehensive, transaction-level view of this market. Sizing this new funding market, we show that secured repo has become a quantitatively important channel for both cross-border dollar funding and collateral management, on par with other forms of cross-border lending instruments and foreign exchange (FX) swaps. 
+
+Based on these data, we document five facts about international repo, covering the currency and maturity dimensions of transactions, trade motives, internal funding markets, and haircuts. Each fact pairs a descriptive pattern with (quasi-)causal evidence on its driver.
+Together, the facts support one overarching claim: the availability and pricing of collateral, rather than cash funding alone, organize how dollars are intermediated outside the United States, with euro area banks as key intermediaries.
+Each fact also challenges a widely held view of repo markets: that they are segmented by home bias, overwhelmingly overnight, and mainly cash-driven, that internal capital markets reallocate only liquidity, and that haircuts protect the cash lender.
+
+Studying them together matters because shocks relocate activity across segments and market participants. For example, lending moves between intermediaries and currencies, funding maturities and trade motives adjust, and volume moves from open to internal funding markets. Our comprehensive data allow us to study these substitution margins, which earlier datasets covering a narrower subset of activity cannot do.
+Our five (quasi-)causal experiments thus measure the substitution margins of offshore dollar funding: who steps in when US banks are stressed, how funding maturities respond to regulation, how market funding substitutes for central bank funding, where scarce collateral flows, and how collateral supply affects haircuts.
+
+\emph{First}, establishing what is preserved from the unsecured era, we quantify the role of the US dollar in modern international repo markets and the part played by European intermediaries, which have traditionally been active in this market.
+We show that dollar activity involving euro area entities is comparable in size to their euro activity, with dollar-denominated transactions representing approximately 40\% of combined euro- and dollar-denominated outstanding volumes, qualifying earlier results by \citet{schaffner2019}, who argue that repo markets are subject to home bias.
+Euro area banks are not merely passive participants but active and sizable intermediaries in international dollar funding. Exploiting the SVB collapse in March 2023 as an exogenous shock to US dollar liquidity provision, we find in a difference-in-differences framework that euro area banks increased their outstanding dollar repo lending by approximately \$1.5 billion per bank relative to other foreign banks, stepping in to fill the gap left by stressed US institutions.
+A back-of-envelope aggregation across the 46 euro area banking groups in our sample puts the total at roughly \$70 billion of additional dollar lending within three months.
+\emph{Second}, we show that the repo market retains the importance of term funding that characterized the unsecured Eurodollar market. Contrary to common perception, longer maturities play  a central role in repo and  especially so in the bilateral segment where cross-border intermediation is concentrated.  In particular, only 26\%  of euro-denominated (50\% of dollar-denominated) outstanding volumes in bilateral transactions are overnight. Our results thus complement earlier work \citep[e.g.,][]{mancini2016, bechtel2023, huser2024} which focused on very short-term repos. 
+We provide (quasi-)causal evidence consistent with regulation shaping the maturity structure by exploiting the introduction of SA-CCR in June 2021, which raised capital costs for term FX swaps. Since repos and FX swaps are commonly paired at matching maturities to intermediate cross-currency funding \citep{du2025, kloks2024}, this regulatory shock feeds indirectly into repo maturities as well. In a difference-in-differences design using EUR repos as a control, we find that USD repo maturities declined by approximately 17\%, with a reallocation from the 3 to 12 month segment toward shorter tenors.
+
+\emph{Third}, and in stark contrast to a purely cash-driven market, repo markets are predominantly collateral-oriented.
+Trades targeting a specific security account for 89\% of euro-denominated and 65\% of dollar-denominated outstanding volumes. This cross-currency gap likely reflects both the greater heterogeneity of euro collateral \citep{ehrmann2017, jiang2020} and the central role of dollar funding for euro area entities. 
+However, this composition is not static. In particular, changes in central bank balance sheets are a natural candidate for the shifts we observe, since they alter the relative scarcity of cash and collateral in the market. We illustrate this with the mandatory June 2023 repayment of TLTRO~III, a multi-year lending facility from the Eurosystem to euro area banks. In a triple-difference design we show that euro area banks raised the share of cash-driven trades in their euro long-term repo borrowing by approximately 23 percentage points relative to non-EA banks and to their own USD activity. The composition of who borrows dollars also shifts over our sample. Investment funds become the largest net borrowers of dollar cash by 2024, while dealers move from net providers of collateral to net takers, a pattern consistent with the growth of the Treasury cash-futures basis trade \citep{barth2025, kashyap2025, kruttli2025ltcm}.
+
+\emph{Fourth}, tracing the consequences of collateralization for intermediation, we document a large role for internal capital markets, where banks transfer funding and collateral between subsidiaries or branches through internal repos. Intragroup transactions represent more than a third of euro-denominated and about a quarter of dollar-denominated outstanding volumes in the bilateral segment, comparable to the 13 to 37\% range of intragroup claims and liabilities of internationally active banks \citep{hardy2024}. 
+Going beyond the earlier literature on how internal capital markets reallocate liquidity \citep{cetorelli2012}, we show that intragroup trades also reallocate scarce securities. We test this new channel by exploiting within-bond variation in collateral specialness and find that when a bond becomes scarce, intragroup volumes increase significantly more than non-intragroup bilateral volumes, consistent with banking groups mobilizing their internal markets to reallocate sought-after securities across entities.
+
+\emph{Fifth}, we show that negative haircuts are a non-trivial feature of repo markets and can be linked to the demand for specific securities and market power. A haircut can play two opposite roles: a positive haircut protects the cash provider against borrower default, while a negative haircut, in which the cash borrower receives more funding than the market value of the collateral, protects the security provider against the cash side failing to return the collateral. In our data, negative haircuts account for 9\% of euro-denominated and 4\% of dollar-denominated outstanding volumes on average. These shares can be compared to those of positive haircuts, which average around 12\% for EUR and 25\% for USD repos.\footnote{The remaining transactions report a haircut of zero, which are a prevalent feature of repo markets \citep[see e.g.,][]{julliard2022, hempel2023}.} That negative haircuts are this common, and roughly the size of positive haircuts for EUR trades, challenges the conventional view that haircuts primarily protect the cash lender \citep[see][]{gorton2010, krishnamurthy2014, copeland2014}. These shares vary over time, with central bank balance sheet policy one key driver, a pattern that ties back to the TLTRO evidence in Fact 3.
+In the cross section, negative haircuts are most common in intragroup transactions but also appear widely when dealers trade with their customers, especially investment funds, consistent with demand for specific securities and dealers' market power. We further provide causal evidence for the collateral scarcity channel by exploiting sovereign bond reopenings as exogenous supply shocks, finding that when the outstanding amount of a specific bond increases, the share of negative-haircut transactions declines by roughly 7\% relative to its pre-reopening level.
+
+Taken together, three themes run through the five facts. First, international activity concentrates in the bilateral segment, which is large and structurally distinct from centrally cleared and triparty repo (Fact 2). This is also where banks trade with non-banks, above all investment funds (Fact 3). Second, euro area banks are central intermediaries of dollar funding, and they expand this role when US banks come under stress (Fact 1). Third, the availability and pricing of collateral shape flows inside banking groups (Fact 4) and the haircuts at which trades are struck (Fact 5). The (quasi-)causal experiments also carry a lesson for measuring repo markets. Our results show that such shocks produce sizable substitution between currencies, maturities, or counterparties. In a narrower dataset, such shifts would register simply as a growing or a shrinking market.
+Estimates of the market's size, maturity structure, or riskiness built from partial data are therefore not merely incomplete; they can be systematically misleading about its resilience.
+Only data that span the whole market can uncover these substitution effects.
+
+\paragraph{Related literature.} Our paper relates to several strands of the literature. In the literature on international dollar funding, prior research has emphasized dollar bond holdings, FX swaps, and money-market-fund funding \citep[e.g.,][]{ivashina2015, maggiori2020, aldasoro2022, shin2023, correa2025}. We document cross-border repo as a quantitatively important channel and show that euro area banks are important intermediaries in the repo segment of the broader dollar system. The centrality of euro area banks in dollar intermediation also matters for the literature on central bank swap lines as a backstop for international dollar funding \citep{bahaj2022, goldberg2022}.
+
+In the repo literature, \citet{schaffner2019} document home bias in European repo markets. We qualify this view by showing that there is deep cross-border integration by euro area banks in the dollar segment. Other work in the earlier literature has focused on overnight markets or specific repo segments \citep[e.g.,][]{mancini2016, bechtel2023, huser2024}, while our comprehensive data allow us to document the bilateral, term-funded character of international dollar activity that earlier data sets did not cover. Previous work on haircuts \citep{infante2019, baklanova2019, hempel2023, julliard2022} has studied the distribution of haircuts, including negative haircuts, in the US market and provided rationales for the latter. We build on this literature by documenting that negative haircuts are a quantitatively important feature of international repo markets and provide quasi-causal evidence that collateral scarcity is a key driver of negative haircuts. Finally, our paper relates to the literature on internal capital markets \citep{cetorelli2012, hardy2024}, which has focused on liquidity reallocation. We show that intragroup repo also reallocates scarce collateral across entities.
+
+
+
+%-------------------------------------------
+
+\section{Data}
+\label{section:data}
+\subsection{Data overview: the Securities Financing Transactions Datastore}
+We use novel regulatory microdata from the European Central Bank (ECB) \emph{Securities Financing Transactions Datastore} (SFTDS), which covers \emph{all SFT activity} of euro area established entities and their branches. The data therefore capture not only the ``euro'' repo market comprehensively but also a large share of the ``foreign currency'' repo market (transactions in US dollars and other currencies).
+
+The SFTDS results from the Securities Financing Transactions Regulation (SFTR), which mandates all entities established within the European Economic Area (EEA), branches of EEA-established entities located outside the EEA, and branches of non-EEA firms located inside the EEA to report their Securities Financing Transactions (SFTs). SFTDS covers three types of SFTs (repo and buy/sell-backs, securities lending, and margin lending), of which we focus on repos, the largest segment. SFTDS represents the euro area subset of these reports (see also Figure \ref{fig:reporting} in the Internet Appendix).
+
+The reporting scope captures three groups of entities. Euro area entities operating at home; their foreign branches operating abroad; and branches as well as subsidiaries of non-euro area entities operating inside the euro area, such as the European offices of US banks. It also captures dollar transactions in which at least one side is a euro area entity, including the subset in which neither side is a US resident. The dataset covers multiple currencies, but the two most prominent by far are the euro (EUR) and the US dollar (USD), on which we focus.
+
+Throughout the paper, we use ``international dollar repo'' to refer to the USD repo activity of EA entities and their branches, which spans trades among EA entities, trades with US counterparties, and trades in which neither side is a US resident. We reserve the term ``offshore'' for the latter subset, which operates entirely outside the jurisdictional confines of the US and which we quantify in Fact 1.
+
+The main advantage of our data is comprehensiveness combined with high granularity. Previous datasets typically cover only specific subsets of repo activity. For example, papers based on the ECB Money Market Statistical Reporting (MMSR) dataset cover only euro-denominated transactions reported by the largest banks \citep[see for example][]{barbiero2024,carrera2024}. Data from private-sector trading platforms such as BrokerTec, MTS, or Eurex offer valuable but narrow views of particular segments \citep[see for example][]{arrata2020, corradin2020, ballensiefen2023}. The quantitatively large but opaque non-centrally cleared, or bilateral, repo segment, which is the primary venue for international dollar activity, has been largely unexplored due to a lack of data. Similarly, data on the US repo market are limited to a subset of entities or a specific type of clearing \citep[see for example,][]{copeland2014, krishnamurthy2014, hempel2023}. The SFTDS overcomes these limitations.
+Section \ref{sec:taxonomy} of the Internet Appendix organizes the market into a three-level taxonomy -- transaction motive and currency, clearing mechanism, and transaction characteristics -- and Figure \ref{fig:taxonomy} maps outstanding volumes into it.
+
+%--------------------
+
+\subsection{Descriptive statistics}
+
+Table \ref{tab:descriptives} provides an overview of key characteristics of the repo market in our sample.
+Our sample period runs from January 1, 2021 to April 1, 2024, at daily frequency.\footnote{Given the size and granularity of the data, they need extensive cleaning, preparation, and filtering. We provide details on these steps in Section \ref{sec:cleaning} of the Internet Appendix.} There are on average 39,538 new trades per day, resulting in total daily new volumes of \euro 1,280 billion. The average trade size is \euro 32.24 million, due to the presence of some very large transactions. The median trade size, in turn, is markedly lower, at \euro 7.51 million.
+
+Disaggregating by currency, euro-denominated transactions represent the largest segment, involving 567 unique entities and averaging 26,870 new trades per day (approximately 22 million in total). For context, \citet{mancini2016} analyze roughly 110,000 transactions in total from 2006 to 2013 using Eurex, and studies based on MMSR \citep[e.g.][]{greppmair2023, carrera2024} rely on 70 reporting banks, considerably narrower than the universal reporting under SFTR.
+
+The US dollar is the second largest segment, with 10,180 new trades per day on average (approximately 7.6 million total), involving 943 entities and totaling \euro 1.80 trillion in daily outstanding volume. By comparison, \citet{krishnamurthy2014} analyze 16,000 transactions in total, while \citet{hempel2023} and \citet{baklanova2019} cover nine dealers with \$900 billion outstanding per day in non-cleared bilateral repo. Since the euro and the US dollar are by far the two most frequent currencies, we focus on euro- and dollar-denominated transactions for the remainder of the paper.
+
+The remaining breakdowns in Table \ref{tab:descriptives} map directly into the five facts. First, the currency decomposition shows that nearly half of outstanding volumes are denominated in currencies other than the euro. This international character of repo activity, and the role of the US dollar in particular, is the subject of Fact 1. Second, term trades make up only about a tenth of daily new transactions but the majority of outstanding volumes, a distinction between the flow and outstanding views that we exploit in Fact 2. This accumulation of longer-maturity transactions is concentrated in the bilateral segment, which accounts for \euro 3.4 trillion of the \euro 5.4 trillion in total outstanding volumes. Third, the bilateral segment involves by far the largest number of unique entities, 1,017 compared to 165 in central clearing, indicating a broad participant base beyond banks that we trace to non-bank financial intermediaries in Fact 3. Government securities, in turn, underlie approximately 78\% of daily new volumes, tying the market closely to the supply of safe and liquid collateral, whose availability and pricing are at the center of Facts 3 to 5.
+
+
+\begin{table}[tbp]
+\centering
+\caption{Summary statistics of repo activity}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l
+  S[table-format=5.0, group-separator={,}]
+  S[table-format=3.2]
+  S[table-format=2.2]
+  S[table-format=4.2, group-separator={,}]
+  S[table-format=4.2, group-separator={,}]
+  S[table-format=4.0, group-separator={,}]}
+\toprule
+& {Trades/day} & {Avg.\ size (mln)} & {Med.\ size (mln)} & {Volume (bn)} & {Outst.\ vol.\ (bn)} & {Entities} \\
+\midrule
+\textit{Overall} & 39538 & 32.24 & 7.51 & 1280.12 & 5400.25 & 1411 \\[1mm]
+\multicolumn{7}{@{}l}{\textit{Currency}} \\
+\quad EUR & 26870 & 24.52 & 7.60 & 653.74 & 2854.68 & 567 \\
+\quad USD & 10180 & 54.44 & 4.18 & 553.33 & 1804.99 & 943 \\
+\quad GBP & 2674 & 38.34 & 12.60 & 97.98 & 445.25 & 181 \\
+\quad Other & 719 & 33.60 & 11.88 & 24.21 & 455.63 & 121 \\[1mm]
+\multicolumn{7}{@{}l}{\textit{Clearing}} \\
+\quad Cleared & 19007 & 25.85 & 11.59 & 486.87 & 1329.93 & 165 \\
+\quad Bilateral & 18719 & 32.60 & 3.76 & 613.04 & 3416.79 & 1017 \\
+\quad Triparty & 1812 & 103.79 & 0.48 & 180.22 & 653.53 & 458 \\[1mm]
+\multicolumn{7}{@{}l}{\textit{Maturity}} \\
+\quad Overnight & 35163 & 31.89 & 7.69 & 1127.20 & 2043.57 & 1103 \\
+\quad Term & 4375 & 35.19 & 7.41 & 152.92 & 3356.68 & 525 \\[1mm]
+\multicolumn{7}{@{}l}{\textit{Collateral}} \\
+\quad GOVS & 29222 & 34.17 & 11.25 & 995.47 & 4016.02 & 978 \\
+\quad Non-GOVS & 10317 & 27.08 & 1.54 & 284.65 & 1384.23 & 738 \\[1mm]
+\bottomrule
+\end{tabular*}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: All figures are based on daily activity. GOVS = Government securities. The number of trades for individual currencies does not sum to the overall total because not all currencies have data on all dates (e.g., due to regional holidays), which affects the averages. The Entities column shows the number of unique entities involved. Entity counts are not additive across rows because an entity can transact in multiple segments.
+The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+\label{tab:descriptives}
+\end{table}
+
+\subsection{Sizing international repo in the context of cross-border dollar funding}
+\label{subsec:sizing}
+
+To place the SFTDS volumes in context, we compare them to two external benchmarks for cross-border dollar funding: the stock of cross-border USD positions of euro area banks reported in the BIS Locational Banking Statistics (LBS), and the turnover of EUR/USD FX swaps reported in the BIS Triennial Survey.\footnote{Section \ref{sec:bisbenchmark} of the Internet Appendix documents the construction of both benchmark series and discusses the assumptions underlying these comparisons.} On the stock dimension, the LBS reports that EA-resident banks held approximately \textdollar 3.65 trillion in cross-border USD claims and \textdollar 3.37 trillion in cross-border USD liabilities at end-2024. Our SFTDS USD outstanding of around \textdollar 2 trillion is therefore equivalent to roughly a quarter to a third of EA banks' \emph{total} cross-border USD footprint. Beyond the comparison with EA banks' total cross-border USD activity, a more relevant benchmark for repo is EA banks' cross-border USD loans and deposits, which is the LBS instrument category that includes the cash leg of repo. Relative to this benchmark, USD repos account for roughly half of EA banks' cross-border USD loans and deposits, which underscores the importance of secured funding as a channel for cross-border USD intermediation.\footnote{The USD-specific loans-and-deposits share is not published in LBS; we approximate it using the all-currencies share for the same EA reporting countries (52.3\% at end-2024). See Section \ref{sec:bisbenchmark} of the Internet Appendix for details.}
+
+
+On the turnover dimension, the BIS Triennial Survey reports an average daily turnover of EUR/USD FX swaps specifically of approximately \textdollar 997 billion in April 2022 and approximately \textdollar 862 billion in April 2025. The directly comparable figure in our data is daily new USD repo turnover of approximately \textdollar 600 billion in total. Since repos and FX swaps are commonly paired at matching maturities to intermediate cross-currency funding \citep{du2025, kloks2024}, these magnitudes place secured repo alongside FX swaps as a quantitatively important channel for international dollar funding.
+
+%-------------------------------------------------------
+
+\section{Five Facts on International Repo}
+\label{section:fivefacts}
+
+We present the five facts in turn. For each, we first document the descriptive pattern that the international, transaction-level data reveal, and then provide (quasi-)causal evidence on the underlying mechanism.
+Each of these experiments isolates one substitution margin of the market's response to a shock.
+
+
+\subsection[Fact \#1 -- European banks are deeply embedded in US dollar funding markets]{Fact \#1 -- European banks are deeply embedded in US dollar funding markets}
+
+\paragraph{Documenting the pattern: descriptive evidence.}
+We start by quantifying the share of US dollar-denominated activity in our data. This provides a first measure of the scale of offshore dollar intermediation in repo markets.\footnote{While some studies consider foreign-currency repo activity, they rely on balance sheet data and therefore do not capture transaction-level dynamics. For example, \citet{correa2025} include foreign-currency repos but use balance sheet data. \citet{klaus2024} provide evidence on USD repo in the euro area but focus on euro area banks only.} We find that this segment is economically large. Specifically, dollar-denominated transactions represent approximately 40\% of combined euro- and dollar-denominated outstanding volumes in our data, averaging \euro 1.8 trillion compared to \euro 2.8 trillion for euro-denominated transactions. Figure \ref{fig:volume_growth} in the Internet Appendix summarizes these results, showing the amount of outstanding volumes.
+
+The size of dollar repos in a dataset based on euro area entity reporting is notable, especially given the euro's weight as a currency bloc. To understand who intermediates this activity, Table \ref{tab:usd_matrix} reports the structure of USD repo, with cash lenders in rows and cash borrowers in columns. Entities are grouped by the residence of the operating entity, in or outside the US. Banks outside the US are further classified by the nationality of their group. Inside the US we do not distinguish by nationality, since the SFTR reporting perimeter implies that US-resident banks appear almost exclusively as the US operations of euro area banks or as their counterparties. The shaded block isolates the offshore segment in the strict sense, trades in which neither counterparty is resident in the US.
+
+Two patterns stand out. First, euro area banks are the dominant bank group on both sides of the market. Euro area banks operating outside the US alone account for 31\% of USD lending and 35\% of USD borrowing, and once their US operations are included, euro area banking groups account for roughly half of both. Second, non-bank financial intermediaries (NBFIs) are key players in the market. Taken together, the two NBFI groups provide 20\% of total USD lending to EA banks outside the US and a further 17\% to banks in the US, the large majority of which are the US operations of euro area banks.
+
+This large dollar usage outside the jurisdictional confines of the US is reminiscent of the Eurodollar market. In the strict sense of the shaded block, offshore transactions account for 38\% of USD volumes. Our findings document that secured repo is now a quantitatively important channel for this activity, a feature that prior literature has largely overlooked.
+
+\begin{table}[tbp]
+\centering
+\caption{The structure of USD repo activity}
+\label{tab:usd_matrix}
+\footnotesize
+\definecolor{offshorebg}{gray}{0.90}
+\setlength{\tabcolsep}{3pt}
+% Width available for the two residence blocks after the label and total columns.
+% The "Outside US" block takes half of it; the "In US" block is squeezed by \inussqueeze
+% (set to 0pt for two blocks of exactly equal width).
+\newlength{\blockw}
+\setlength{\blockw}{\dimexpr(\textwidth-4.6cm)/2\relax}
+\newlength{\inussqueeze}
+\setlength{\inussqueeze}{0.8cm}
+\newcolumntype{U}{>{\centering\arraybackslash}p{\dimexpr(\blockw-\inussqueeze)/2-2\tabcolsep\relax}}
+\newcolumntype{O}{>{\centering\arraybackslash}p{\dimexpr\blockw/3-2\tabcolsep\relax}}
+\newcolumntype{T}{>{\centering\arraybackslash}p{0.9cm}}
+\begin{tabular}{@{}ll UU OOO T@{}}
+\toprule
+ & & \multicolumn{5}{c}{\textit{Cash borrower}} & \\
+\cmidrule(lr){3-7}
+ & & \multicolumn{2}{c}{In US} & \multicolumn{3}{c}{Outside US} & \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-7}
+\multicolumn{2}{@{}l}{\textit{Cash lender}} & Bank & NBFI & EA bank & Non-EA bank & NBFI & Total \\
+\midrule
+In US       & Bank        &  3.8 &  4.3 &  6.5 & $<0.5$ &  5.7 &  20 \\
+            & NBFI        & 10.7 & $<0.5$ & 11.5 & $<0.5$ & $<0.5$ &  23 \\
+\cmidrule(lr){1-8}
+Outside US  & EA bank     &  7.3 &  4.0 & \cellcolor{offshorebg}3.1 & \cellcolor{offshorebg}6.4 & \cellcolor{offshorebg}9.7 &  31 \\
+            & Non-EA bank & $<0.5$ & $<0.5$ & \cellcolor{offshorebg}5.5 & \cellcolor{offshorebg}$<0.5$ & \cellcolor{offshorebg}0.6 &   6 \\
+            & NBFI        &  6.2 &  1.2 & \cellcolor{offshorebg}8.8 & \cellcolor{offshorebg}2.2 & \cellcolor{offshorebg}1.4 &  20 \\
+\midrule
+\multicolumn{2}{@{}l}{Total}  & 28 & 10 & 35 &  9 & 18 & 100 \\
+\bottomrule
+\end{tabular}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: This table reports the structure of dollar-denominated repo activity, with cash lenders in rows and cash borrowers in columns. All clearing types are considered. Each cell shows the share of total USD outstanding volumes accounted for by a given lender and borrower pair. Row and column totals give the share of each counterparty type in total USD lending and borrowing, respectively. Entities are grouped by residence, meaning the jurisdiction in which the operating entity is located. Outside the US, banks are further classified by nationality, meaning the jurisdiction of the ultimate parent. ``EA bank'' refers to entities of euro area banking groups, and ``Non-EA bank'' to entities of all other banking groups. ``NBFI'' refers to non-bank financial intermediaries. The shaded cells mark the offshore segment, transactions in which neither counterparty is resident in the US. Numbers may not sum to totals due to rounding. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+\end{table}
+
+
+\begin{figure}[tbp]
+\centering
+\caption{USD Outstanding net cross-border flows}
+\begin{subfigure}{0.45\textwidth}
+\captionsetup{position=top, skip=5pt}
+   \caption{Residence}
+   \includegraphics[width=\linewidth]{Charts/Fact 1/usd_res_conf.pdf}
+   \label{fig:eur}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+\captionsetup{position=top, skip=5pt}
+   \caption{Nationality}
+   \includegraphics[width=\linewidth]{Charts/Fact 1/usd_nat_conf.pdf}
+   \label{fig:usd}
+\end{subfigure} 
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: This figure shows the net flow of cash in dollar-denominated outstanding transactions. All clearing types are considered. Arrows point from the net cash lender to the net cash borrower. Numbers are average daily outstanding volumes in billion euros. Panel (a) classifies entities by residence, meaning where the entity is located. Panel (b) classifies entities by nationality, meaning the jurisdiction of the ultimate parent, following \citet{mcguire2024}. EA refers to the euro area and US refers to the United States. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+\label{fig:usd_flows}
+\alttext{Panel (a): Network diagram of net dollar repo cash flows between the United States, France, Germany, other euro area countries, and other non-euro area countries, with entities classified by residence. The largest net flows run from the United States to France (100.5 billion euros) and to other non-euro area countries (91.3 billion), from other euro area countries to the United States (75.3 billion), and from other euro area countries to other non-euro area countries (73.0 billion); flows involving Germany are small. Panel (b): The same network with entities classified by nationality. The dominant net flow runs from the United States to France (212.1 billion euros), followed by flows from other euro area countries to other non-euro area countries (83.5 billion), from France to other non-euro area countries (58.1 billion), and from other euro area countries to the United States (50.4 billion).}
+\end{figure}
+
+Figure \ref{fig:usd_flows} further breaks down the geography of USD repo into two views, by residence (Panel A) and by banking-group nationality (Panel B), following \citet{mcguire2024}. France is the single largest non-US node under both views, and especially so under nationality. France is a net dollar borrower vis-à-vis the US, with net bilateral outstanding volumes of \euro 100bn under residence and \euro 212bn under nationality. Net lending from France to Other non-EA entities, which includes the United Kingdom, increases strongly from \euro 8bn to \euro 58bn across the two views. Interestingly, the opposite pattern holds for the connection between the US and Other non-EA, which almost disappears under the nationality view. This indicates that much of non-EA resident USD repo outside the US is conducted by French- and other EA-headquartered banks operating from financial centers outside the euro area such as London.
+The figure thus identifies French banks as the central intermediaries of offshore USD repo, with non-EA locations such as London serving primarily as the location where this activity is booked. We will return to this pattern in Fact 4 when we discuss routing patterns in EA banks' intragroup USD activity.
+
+\paragraph{Investigating the mechanism: quasi-causal evidence.}
+The descriptive evidence above establishes that euro area (EA) banks are deeply embedded in dollar repo markets.
+An important follow-up question concerns the role of EA banks in this market.
+Are they active intermediaries, even during times of market stress, or are they better characterized as passive participants that mostly behave like other end-users? The failure of Silicon Valley Bank (SVB) in March 2023 provides a setting to test this. The SVB collapse triggered uncertainty about deposit flows at US banks, creating a potential gap in dollar liquidity provision. Euro area banks' US branches and subsidiaries, which rely far less on USD retail deposits than domestic US counterparts, were less exposed to this deposit-driven stress. We exploit this asymmetric exposure in a difference-in-differences framework to test whether euro area banks stepped in to fill the resulting gap in dollar repo lending.
+
+Specifically, we estimate the following regression for the USD segment of the data:
+
+\begin{equation}
+Y_{it} = \alpha + \beta_1 \text{Post SVB}_t + \beta_2 (\text{Post SVB}_t \times \text{EA Bank}_i) + \mu_i + \varepsilon_{it}
+\end{equation}
+
+where $Y_{it}$ is one of three outcome variables for lending bank i in week t: the average weekly outstanding cash-lending volume in billion USD, the number of distinct borrower counterparties, or the average transaction size in million USD. The first captures the overall response, while the latter two decompose it into an extensive margin (lending to more counterparties) and an intensive margin (scaling up existing relationships). $\text{Post SVB}_t$ is a dummy equal to zero before March 10, 2023 and one afterwards. $\text{EA Bank}_i$ equals one if the lending bank belongs to a euro area banking group. We include lender fixed effects $\mu_i$ to absorb time-invariant differences across banks, and cluster standard errors by lender to account for serial correlation. The event window spans three months before and after the SVB failure.\footnote{Tables \ref{tab:svb_impact_2m} and \ref{tab:svb_impact_6m} provide robustness for different window sizes.} The sample is restricted to bilateral transactions collateralized by government securities, excludes intragroup trades, and considers only lending by banks.\footnote{This subsample ensures that we observe USD activity comprehensively (bilateral segment), that the underlying collateral risk is comparable (government securities), and that our results are not contaminated by simple intragroup lending.}
+
+Table \ref{tab:svb_impact} reports the results. Specification (1) restricts the sample to euro area banking groups and estimates the within-group change in lending volumes. The Post SVB coefficient is positive and statistically significant (1.54), indicating that euro area banks increased their average outstanding dollar repo lending by approximately \$1.54 billion per bank after the collapse.
+This result, identified purely from within-lender variation over the event window, is the primary identification and provides evidence that euro area banks expanded their dollar intermediation role during acute stress in the US banking sector.
+Aggregated across the 46 euro area banking groups in the sample, the estimate corresponds to roughly \$70 billion of additional outstanding dollar lending.
+Specification (2) introduces the difference-in-differences framework that compares euro area banking groups to foreign banking groups with euro area operations. The interaction term $\text{Post SVB}_t \times \text{EA Bank}_i$ is positive and significant (1.49), while the Post SVB coefficient for the broader sample is small and insignificant (0.05), confirming that the increase in dollar lending was concentrated among euro area banks. A joint test of pre-period interaction terms fails to reject parallel trends (p=0.28, F(10, 109)). One caveat is that the foreign banking groups observable in SFTDS are large, globally active institutions whose euro area operations account for considerably smaller dollar lending volumes (see Table \ref{tab:usd_matrix}), so the control group must be interpreted with caution given this scale asymmetry.\footnote{A second, contemporaneous concern is the stress in mid-March 2023, which falls inside our event window. Any affected non-euro-area institution enters only the difference-in-differences control group, so our primary within-group estimate (Specification 1) does not rely on these entities.} Therefore, Specification (1) is our main model and Specification (2) serves as a supplementary check. Nevertheless, the consistency between the within-group estimate in Specification (1) and the difference-in-differences estimate in Specification (2) is consistent with euro area banks actively intermediating dollar liquidity during US banking stress.
+
+Specifications (3) through (6) decompose this response into its extensive and intensive margins. The extensive margin, measured by the number of distinct borrower counterparties, shows a clear response. Euro area banks added approximately 2.2 counterparties per week after the SVB failure, an effect that is statistically significant in both the within-group specification (Specification 3) and the difference-in-differences specification (Specification 4), and that corresponds to roughly 9\% of the pre-period baseline of 24.5 counterparties. The intensive margin, measured by the average transaction size, shows no comparable response. Neither the within-group nor the difference-in-differences coefficient is statistically distinguishable from zero. Taken together, these results indicate that euro area banks expanded their dollar lending by reaching new counterparties rather than by scaling up existing relationships. This pattern is consistent with euro area banks filling a gap in dollar liquidity provision left by stressed US institutions, rather than merely accommodating pre-existing clients with larger loans. This capacity to absorb shocks originating in the US banking sector points towards a stabilizing dimension of offshore dollar intermediation in repo markets.
+
+
+\begin{table}[tbp]
+\centering
+\caption{Impact of SVB Collapse on Transaction Volume}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-2.2, table-space-text-post={\sym{***}}]
+  S[table-format=-2.2, table-space-text-post={\sym{***}}]}
+\toprule
+ & {(1)} & {(2)} & {(3)} & {(4)} & {(5)} & {(6)} \\
+\textit{dep.\ var.:} & \multicolumn{2}{c}{Lending volume (bln \$)} & \multicolumn{2}{c}{N. counterparties} & \multicolumn{2}{c}{Avg.\ trade size (mln \$)} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+\midrule
+Post SVB                  & 1.54\sym{**}  & 0.05         & 2.25\sym{**}  & 0.04         & 1.47          & 6.76         \\
+                          & (0.61{)}      & (0.04{)}     & (0.95{)}      & (0.11{)}     & (2.22{)}      & (8.18{)}     \\
+Post SVB $\times$ EA Bank &               & 1.49\sym{**} &               & 2.20\sym{**} &               & -5.29        \\
+                          &               & (0.61{)}     &               & (0.95{)}     &               & (8.47{)}     \\
+Constant                  & 9.05\sym{***} & 3.43\sym{***}& 24.47\sym{***}&10.99\sym{***}& 34.20\sym{***}&30.80\sym{***}\\
+                          & (0.32{)}      & (0.12{)}     & (0.50{)}      & (0.18{)}     & (1.18{)}      & (2.74{)}     \\
+\midrule
+Lender FE                 & {Y}           & {Y}          & {Y}           & {Y}          & {Y}           & {Y}          \\
+\midrule
+{Observations}            & {816}         & {2,292}      & {816}         & {2,292}      & {816}         & {2,292}      \\
+{R$^2$}                   & {0.989}       & {0.990}      & {0.988}       & {0.989}      & {0.902}       & {0.773}      \\
+\bottomrule
+\end{tabular*}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: The dependent variables are the average weekly outstanding cash-lending volume in billion US dollars (specifications 1--2), the average weekly number of distinct borrower counterparties (specifications 3--4), and the average weekly transaction size in million US dollars (specifications 5--6). `Post SVB' equals zero before \mbox{March 10, 2023} and one afterwards, where SVB refers to Silicon Valley Bank. `EA Bank' equals one if the bank is part of a euro area banking group. This results in 46 euro area and 68 non-euro area banks. The event window spans three months before and after the SVB failure. Only bilateral, non-intragroup transactions with government securities and only banks lending are considered. Specifications (1), (3), and (5) are restricted to EA banking groups. Specifications (2), (4), and (6) are difference-in-differences specifications comparing EA to foreign banking groups. All specifications include lender fixed effects. Standard errors are clustered by lender and reported in parentheses. \sym{***}\,$p<0.01$, \sym{**}\,$p<0.05$, \sym{*}\,$p<0.1$.}}
+\label{tab:svb_impact}
+\end{table}
+
+\paragraph{Fact \#1: main take-aways.} The evidence supporting our stylized fact \#1 prompts a reassessment of a common view in the literature concerning geographic segmentation. \citet{schaffner2019} argue that repo markets exhibit home bias, but our findings show that while this may hold within euro area member states, it does not extend to the dollar dimension. Euro area banks are deeply integrated into global short-term funding markets, both as borrowers and as lenders, and they actively expand this role when US institutions face stress. Overall, dollar repo activity involving euro area entities is both quantitatively large and, in many cases, entirely detached from direct involvement of US entities. The presence of US and other non-EA entities in euro-denominated repo through subsidiaries and branches further underscores the blurring of geographical boundaries in secured funding markets \citep{avdjiev2016}.
+
+
+\subsection[Fact \#2 -- Longer-term repos play a much bigger role than commonly assumed]{Fact \#2 -- Longer-term repos play a much bigger role than commonly assumed}
+\label{sec:fact2}
+
+\paragraph{Documenting the pattern: descriptive evidence.}
+Fact 1 established that EA banks intermediate a quantitatively large pool of international dollars. A natural question is whether they do so on the same maturity terms that characterized the unsecured Eurodollar era, when term deposits at multi-month tenors were a defining feature of the market \citep{goodfriend1981}. The recent empirical literature on repo, by contrast, has focused predominantly on the overnight segment \citep{mancini2016, bechtel2023, huser2024}, in part because of reliance on flow datasets where overnight repo transactions naturally dominate. We use outstanding data, which track transactions throughout their life rather than only at inception, and show that term funding plays a much larger role than the flow-based view suggests, especially in the bilateral segment where cross-border activity is concentrated.
+
+Table \ref{tab:maturity_distribution} documents the maturity structure by showing a breakdown of repo maturities for EUR- and USD-denominated trades, revealing two important patterns. First, the maturity structure differs sharply across clearing types. Centrally cleared repos are heavily concentrated at the overnight tenor, with 69\% of EUR and 74\% of USD volumes maturing the next day. Bilateral repos, by contrast, are substantially longer. In the bilateral segment, only 26\% of EUR and 50\% of USD volumes are overnight, while more than a fifth of EUR bilateral volumes have a residual maturity beyond three months. This asymmetry reflects the different functions of the two segments. Central clearing is dominated by bank-to-bank trades where counterparties manage short-term liquidity positions, while the bilateral segment involves a more diverse set of participants including investment funds, insurance corporations, and pension funds, which use repo to support longer-term portfolio strategies. Second, USD repos are systematically shorter than EUR repos within each clearing type. Even so, the prevalence of term dollar repos in the bilateral segment shows that term funding remains a quantitatively important feature of international dollar intermediation, much as it was in the unsecured Eurodollar market. These patterns, only visible in outstanding data, qualify the common perception that repo is overwhelmingly an overnight market, and highlight the importance of term funding in the bilateral segment where cross-border activity is concentrated. 
+
+
+\begin{table}[tbp]
+\centering
+\caption{Maturity distribution of outstanding repo volumes}
+\label{tab:maturity_distribution}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{Centrally cleared} & \multicolumn{2}{c}{Bilateral} & \multicolumn{2}{c}{Triparty} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+ & EUR & USD & EUR & USD & EUR & USD \\
+\midrule
+Overnight        & 69.1 & 73.7 & 26.0 & 49.8 & 37.3 & 55.0 \\
+Up to 1 week     &  2.0 &  4.1 & 10.2 &  8.9 & 10.1 &  7.7 \\
+1 week -- 1 month & 11.1 & 12.4 & 26.8 & 16.5 &  7.8 & 10.2 \\
+1 -- 3 months    & 15.4 &  7.5 & 15.1 & 13.5 & 10.3 & 18.5 \\
+More than 3 months &  2.4 &  2.3 & 21.9 & 11.3 & 34.6 &  8.7 \\
+\bottomrule
+\end{tabular}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: This table reports the maturity distribution of outstanding volumes, separately by clearing type and currency. Each cell gives the share of outstanding volume in percent in a given maturity bucket. Only fixed-maturity repos are included. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+\end{table}
+
+Expanding on the aggregate pattern, Figure \ref{fig:mat_trans} shows the maturity mismatch by sector, defined as the difference between the average lending maturity and the average borrowing maturity, where a positive value indicates that the entity lends longer than it borrows. Maturity transformation is concentrated among euro area dealer banks, which run mismatches of around 27 days in both euro- and dollar-denominated transactions. Non-EA dealers, by contrast, exhibit much smaller mismatches, indicating that foreign dealer activity in our data is closer to matched-book intermediation.\footnote{For the dollar side, the mismatch should be interpreted as an upper bound; see Section \ref{subsec:fact2} in the Internet Appendix for discussion.}
+
+
+\begin{figure}[tbp]
+    \centering
+    \caption{Maturity mismatch}
+       \begin{subfigure}[b]{0.52\textwidth}
+        \centering
+        \caption{\textbf{Euro}}
+        \includegraphics[width=\textwidth]{Charts/Fact 2/mat_trans_euro.png}
+        \label{fig:mat_trans_eur}
+    \end{subfigure}
+    \\
+    \begin{subfigure}[b]{0.52\textwidth}
+        \centering
+        \caption{\textbf{Dollar}}
+        \includegraphics[width=\textwidth]{Charts/Fact 2/mat_trans_usd.png}
+        \label{fig:mat_trans_usd}
+    \end{subfigure}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: The graphs show the maturity mismatch by sector in outstanding euro- and dollar-denominated bilateral non-intragroup transactions using specific collateral, computed as the volume-weighted average lending maturity minus the volume-weighted average borrowing maturity, expressed in days. A positive value indicates that the sector lends at a longer maturity than it borrows. Entities are classified as euro area or non-euro area based on nationality. Dealer banks are banks holding a primary dealer license as published by ESMA. NBFI captures all non-bank sectors. Panel (a) shows euro-denominated transactions and panel (b) shows dollar-denominated transactions. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+    \label{fig:mat_trans}
+\alttext{Two bar charts of maturity mismatch in days for dealer banks, non-dealer banks, and non-bank financial intermediaries, each split into euro area and non-euro area entities. In euro repos, euro area dealer banks lend at maturities about 27 days longer than they borrow, compared with about 2 days for non-euro area dealer banks, while the other groups show small mismatches. In dollar repos, euro area dealer banks again show a mismatch of about 27 days, whereas non-bank financial intermediaries borrow at longer maturities than they lend, with mismatches of about minus 7 days for euro area and minus 11 days for non-euro area entities.}
+\end{figure}
+
+\paragraph{Investigating the mechanism: quasi-causal evidence.} To understand what shapes this term structure, we make use of the fact that repos are often held in combination with other positions. For example, they are commonly paired with other trades such as FX swaps to intermediate cross-currency funding \citep{kloks2024, du2025}, with futures to implement basis trades \citep{barth2025, kashyap2025, kruttli2025ltcm}, or with bond holdings to obtain leverage. The maturity of the repo leg therefore reflects both the strategy the position supports and the regulatory cost of carrying its paired components at different tenors. Motivated by the concentration of maturity transformation in EA dealer banks documented above, we focus on one specific intersection of these forces relevant to this group: euro area banks borrow dollars in the repo market and on-lend them in the FX swap market \citep{du2025}.
+In fact, \citet{du2025} show that combined net dollar positions of EA banks across repo and FX swaps are close to zero, while their gross exposure is approximately \euro 1.9 trillion. Given these strong interconnections, we expect the maturity of the repo leg to be closely linked to the maturity of the FX swap leg. 
+
+
+Building on this link, we exploit the introduction of the Standardised Approach for Counterparty Credit Risk (SA-CCR), which became applicable to EU-regulated institutions on 28 June 2021. SA-CCR sets the capital charge on derivative exposures, including FX swaps, using a maturity factor that is flat below a ten-business-day floor, rises steeply up to one year, and is capped thereafter. This raises the cost of term FX swaps, which we hypothesize feeds into the maturity of the associated USD repos.
+EUR-denominated repos serve as a natural control group, as euro area banks do not require FX swaps to source their domestic currency.
+
+The capital savings from shortening are largest in the steep 3--12 month range and absent below the floor. We therefore expect SA-CCR to induce two adjacent-bucket reallocations rather than a wholesale collapse to overnight: USD volumes shift out of the 3--12 month bucket into the 1--3 month bucket, where the term-segment effect is strongest, and out of the 10-day-to-1-month bucket into the below-floor bucket, where the savings from crossing the floor are smaller.
+
+We exploit this regulatory change in a difference-in-differences framework, comparing USD to EUR repo maturities before and after SA-CCR implementation. The first specification examines the effect on average repo maturity:
+\begin{equation}
+\ln(\text{Maturity}_{i,c,t}) = \alpha_i + \gamma_t + \beta_1 \, \text{USD}_c \times \text{Post}_t + \beta_2 \, \text{USD}_c + \varepsilon_{i,c,t}
+\end{equation}
+where the dependent variable is the log of the average weekly maturity for borrower $i$, in currency $c$, during week $t$. $\text{USD}_c$ is an indicator for dollar-denominated repos. $\text{Post}_t$ equals one from the week of 28 June 2021 onward. $\alpha_i$ denotes borrower fixed effects and $\gamma_t$ week fixed effects. The coefficient of interest is $\beta_1$, which captures the differential change in USD repo maturities relative to EUR repo maturities after SA-CCR implementation.
+
+Furthermore, to examine where in the maturity distribution banks adjust, we estimate a second set of specifications using the share of volumes in each maturity bucket as the dependent variable:
+\begin{equation}
+\text{Share}^{b}_{i,c,t} = \alpha_i + \gamma_t + \beta^{b}_1 \, \text{USD}_c \times \text{Post}_t + \beta^{b}_2 \, \text{USD}_c + \varepsilon_{i,c,t}
+\end{equation}
+where $\text{Share}^{b}_{i,c,t}$ denotes the fraction of volumes by borrower $i$, in currency $c$, during week $t$ that fall into maturity bucket $b$. We define four buckets motivated by the SA-CCR maturity factor schedule: below floor ($\leq$ 10 business days), short-term (10 business days to 1 month), medium-term (1 to 3 months), and long-term (3 to 12 months). The first bucket corresponds to maturities at or below the 10-business-day floor, where the maturity factor is constant and minimal. The sample covers March to September 2021, providing a symmetric window around the SA-CCR application date. We restrict attention to bilateral, non-intragroup repos collateralized by government securities, and consider only euro area borrowers operating domestically. A joint test of the pre-period interaction terms fails to reject the null of parallel trends (p=0.88, F(12, 192)). Standard errors are two-way clustered by borrower and week.
+
+Table \ref{tab:saccr_maturity} reports the results.\footnote{Table \ref{tab:saccr_maturity_placebo} in the Internet Appendix shows a placebo test for non-euro area banks.} Specification (1) shows that USD repo maturities decline by approximately 17\% relative to EUR repos following SA-CCR implementation. Evaluated at the pre-period USD average of 47 business days, the estimate translates into a shortening of roughly 8 business days. Specifications (2) through (5) reveal where in the maturity distribution banks adjust, confirming the predictions from the maturity factor schedule described above.
+
+\begin{table}[tbp]
+\centering
+\caption{SA-CCR Effect on Repo Maturity Structure}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]}
+\toprule
+ & {(1)} & {(2)} & {(3)} & {(4)} & {(5)} \\
+\textit{dep.\ var.:} & {ln(Maturity)} & {Below Floor} & {Short} & {Medium} & {Long} \\
+ & & {($\leq$ 10 days)} & {(10 days -- 1M)} & {(1M -- 3M)} & {(3M -- 12M)} \\
+\midrule
+USD $\times$ Post & -0.173\sym{*} & 0.054 & -0.052\sym{*} & 0.111\sym{**} & -0.113\sym{**} \\
+ & (0.090{)} & (0.034{)} & (0.029{)} & (0.055{)} & (0.050{)} \\
+USD & 0.107 & 0.023 & 0.044 & -0.207\sym{***} & 0.139\sym{**} \\
+ & (0.204{)} & (0.051{)} & (0.043{)} & (0.058{)} & (0.069{)} \\
+\midrule
+Borrower FE & {Y} & {Y} & {Y} & {Y} & {Y} \\
+Week FE & {Y} & {Y} & {Y} & {Y} & {Y} \\
+\midrule
+{Observations} & {4,731} & {4,731} & {4,731} & {4,731} & {4,731} \\
+{R$^2$} & {0.770} & {0.689} & {0.512} & {0.585} & {0.740} \\
+\bottomrule
+\end{tabular*}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: The dependent variable in Specification (1) is log maturity in business days. In Specifications (2)--(5) it is the share of transactions falling into each maturity bucket. `USD' equals one if a transaction is dollar-denominated. `Post' equals one from the week of \mbox{June 28, 2021} onward, when the Standardised Approach for Counterparty Credit Risk (SA-CCR) became applicable. The event window spans three months before and after the SA-CCR application date. The sample is restricted to bilateral, non-intragroup transactions collateralized by government securities. Only euro area borrowers operating domestically are considered. The bucket boundaries follow the SA-CCR maturity factor schedule. The ``below floor'' bucket corresponds to maturities at or below the 10-business-day floor, where the maturity factor is constant. All specifications include borrower and week fixed effects. Standard errors are two-way clustered by borrower and week and reported in parentheses. \sym{***}\,$p<0.01$, \sym{**}\,$p<0.05$, \sym{*}\,$p<0.1$.}}
+\label{tab:saccr_maturity}
+\end{table}
+
+In the term segment, where the maturity factor rises most steeply and the capital savings from shortening are largest, the effects are strong. The share of repos with maturities between 3 and 12 months decreases by 11.3 percentage points for USD relative to EUR (Specification (5)), while the share between 1 and 3 months increases by 11.1 percentage points (Specification (4)). Both coefficients are statistically significant. The close symmetry of the two coefficients is consistent with SA-CCR inducing a reallocation within the term segment: banks shorten their FX swaps and the associated repo funding from the 3--12 month range into the 1--3 month range, rather than shifting volume toward very short maturities. These shifts are economically significant. For the average borrower in our sample, the reallocation implies that roughly one in nine dollars of USD repo funding moved from the 3 to 12 month range into the 1 to 3 month range. Funding that moves between the midpoints of these two buckets rolls over nearly four times as often, which raises the rollover risk of the associated dollar funding.
+
+At the short end, we find suggestive but statistically weaker evidence of a second adjustment. The share of repos below the 10-business-day floor increases by 5.4 percentage points (Specification (2)), while the share between 10 days and 1 month decreases by 5.2 percentage points (Specification (3)). The direction and symmetry are consistent with banks substituting into maturities at or below the floor, where the maturity factor is constant, and the marginal capital cost of extending maturity is zero. The weaker statistical significance is expected, as the capital savings from moving below the floor are considerably smaller than those from shortening within the term segment.
+
+
+\paragraph{Fact \#2: main take-aways.}
+Fact 2 establishes that term funding is both large and regulation-sensitive. Contrary to the common perception of repo as an overnight market, term trades account for the majority of outstanding volumes, especially in the bilateral segment where cross-border activity concentrates, and their maturity structure responds to the regulatory cost of the positions repo is paired with, as the SA-CCR evidence shows. The results in this section, together with those for Fact 1, thus paint the picture of a large, term-funded international dollar market in which EA banks are important nodes of the intermediation network. These features are inherited from the unsecured Eurodollar era. What is new is the central role of collateral. The remaining facts examine how it shapes the motives behind repo trades (Fact 3), the movement of securities across entities of the same banking group (Fact 4), and risk management through haircuts (Fact 5).
+
+
+\subsection[Fact \#3 -- Repo is predominantly collateral-oriented]{Fact \#3 -- Repo is predominantly collateral-oriented}%, with NBFIs as an integral part of the ecosystem}
+\label{sec:fact3}
+
+\paragraph{Documenting the pattern: descriptive evidence.}
+
+We next turn to the underlying motives behind repo transactions. We classify trades with a general collateral basket as cash-driven and trades with specific collateral as collateral-oriented, and we show that USD and EUR repos differ markedly in this respect. Figure \ref{fig:ccy_gnlcoll} shows a breakdown of outstanding volumes in EUR and USD. Collateral-oriented transactions dominate for both currencies, representing almost 90\% of euro-denominated and 65\% of dollar-denominated outstanding volumes. The euro repo market is thus substantially more collateral-oriented than the USD repo market. One underlying reason may be the less homogeneous nature of euro collateral compared to USD collateral.\footnote{For example, euro area entities may be concerned about wrong-way risk, wanting to ensure that they lend against sovereign debt from a different jurisdiction than that of the cash borrower.} Another is that USD funding motives take a more central role for euro area entities, given the dollar's status as the world's primary funding currency.
+
+While this definition of collateral orientation is the standard one in the literature, not every trade against specific collateral is genuinely collateral-\emph{driven}. Some funding-motivated trades use specific securities simply because that is what the collateral provider has on hand. For robustness, we follow \citet{hermes2025} in applying a tighter definition that plausibly isolates trades in which collateral motives are the primary driver, namely trades against specific collateral whose repo rate is at least ten basis points below the relevant reference rate. Figure \ref{fig:cash-versus-collateral} in the Internet Appendix shows the resulting split. Even under this stricter classification, collateral-driven transactions remain the dominant category in both currencies.
+
+
+\begin{figure}[tbp]
+    \centering
+    \caption{Daily outstanding volumes by collateral type and currency}
+    \includegraphics[width=0.7\textwidth]{Charts/Fact 3/ccy_gnlcoll.png}
+    \par\vspace{0.5em}
+    \caption*{\parbox{\textwidth}{Note: This chart shows outstanding volumes broken down by the type of collateral (general or specific) and currency. All clearing types are considered. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+    \label{fig:ccy_gnlcoll}
+\alttext{Stacked area chart of daily outstanding repo volumes from January 2021 to April 2024, split into euro general collateral, euro specific collateral, dollar general collateral, and dollar specific collateral. Total volumes rise from about 3.5 to about 6 trillion euros. Euro trades against specific collateral form the largest component throughout, euro trades against general collateral remain below 0.5 trillion euros, and dollar volumes are split more evenly between general and specific collateral.}
+\end{figure}
+
+
+While the predominance of collateral-driven trades in EUR repos is well established in the literature \citep[see, e.g.,][]{brand2019,schaffner2019,bassi2024}, the composition of USD repo trades involving euro area entities has not been studied directly. Combining insights from \citet{damico2018} and \citet{baklanova2019} suggests that roughly half of the US repo market is collateral-oriented. Our estimate for USD repos involving euro area entities is notably higher at about 65\%, implying an even larger role for collateral motives in this segment.
+
+These aggregate shares mask an important shift in who supplies dollar collateral, and equivalently who borrows dollar cash, over our sample. Figure \ref{fig:drivers_net_col} reports net outstanding positions by sector, separately for EUR (Panel A) and USD (Panel B), where positive values indicate net cash borrowers, equivalently net collateral lenders.
+
+\begin{figure}[tbp]
+    \centering
+    \caption{Outstanding net positions in transactions with specific collateral by sector}
+       \begin{subfigure}[b]{0.47\textwidth}
+        \centering
+        \caption{\textbf{Euro}}
+        \includegraphics[width=\textwidth]{Charts/Fact 3/neteur_collateral.png}
+        \label{fig:spec_net_eur}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.47\textwidth}
+        \centering
+        \caption{\textbf{Dollar}}
+        \includegraphics[width=\textwidth]{Charts/Fact 3/netusd_collateral.png}
+        \label{fig:spec_net_usd}
+ \end{subfigure}
+ \vspace{-0.2cm}
+        \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Charts/Fact 3/sector_legend.png}
+    \end{subfigure}
+    \par\vspace{0.5em}
+   \caption*{\parbox{\textwidth}{Note: The graphs show outstanding net positions in transactions with specific collateral. Net positions are calculated as cash borrowing volume minus cash lending volume. A positive value indicates that the sector is a net cash borrower, equivalently a net collateral lender. Panel (a) shows euro-denominated transactions and panel (b) shows dollar-denominated transactions. All clearing types are considered. Dealers are banks holding a primary dealer license as published by ESMA. ICPF refers to insurance corporations and pension funds, MMF to money market funds, Inv.\ Fund to investment funds, and OFI to other financial intermediaries. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+    \label{fig:drivers_net_col}
+\alttext{Two stacked area charts of net positions by sector in repos against specific collateral from January 2021 to April 2024, in billion euros, with positive values denoting net cash borrowers. In euro repos, non-dealer banks and insurance corporations and pension funds are persistent net cash borrowers of about 200 to 300 billion euros, mirrored mainly by dealer banks as net cash lenders. In dollar repos, net positions are smaller and shift over time: investment funds become the largest net cash borrowers by 2024, while dealer banks move from net cash borrowers to net cash lenders.}
+\end{figure}
+
+For USD repos, Panel B shows that dealers, typically net lenders of dollar collateral, flip to net borrowers in 2024, while investment funds emerge as the largest net lenders of collateral and thus the largest net borrowers of cash at that time. This pattern is consistent with the expansion of the cash-futures basis trade \citep{barth2025, kashyap2025, kruttli2025ltcm}, in which hedge funds lever their Treasury holdings by financing them via repo while dealers provide the cash and warehouse the collateral.
+
+\paragraph{Investigating the mechanism: quasi-causal evidence.}
+While collateral-oriented trades dominate on average, this composition need not be static. A natural candidate driver of shifts over time is central bank balance sheet policy, which alters the relative scarcity of cash and collateral. We test this using the ECB's third targeted longer-term refinancing operations (TLTRO III), which provided euro area banks with multi-year funding at favorable rates. Its repayment forced affected banks to source euro liquidity elsewhere, with repo a natural substitute. We therefore hypothesize that affected banks shift toward cash-driven (general collateral) term repo borrowing to replace the withdrawn central bank funding.
+
+Specifically, we focus on the mandatory repayment of TLTRO III on 28 June 2023, the largest single repayment event. Unlike the earlier, voluntary early repayment windows, this event was compulsory for all participating banks, providing a sharp and plausibly exogenous shock to bank funding. We estimate a triple-difference specification:
+\begin{multline}
+\label{eq:tltro_dynamic}
+\text{CashShare}_{i,c,t} = \alpha_i + \gamma_1 \, \text{EUR}_c + \gamma_2 \, \text{Post}_t + \gamma_3 \, \text{EUR}_c \times \text{Post}_t + \beta_2 \, \text{EA Bank}_i \times \text{Post}_t \\
++ \beta_3 \, \text{EUR}_c \times \text{EA Bank}_i + \beta_4 \, \text{EUR}_c \times \text{EA Bank}_i \times \text{Post}_t + \varepsilon_{i,c,t}
+\end{multline}
+where the dependent variable is the share of cash-driven transactions in total repo cash-borrowing for borrower $i$, in currency $c$, during week $t$. $\text{EUR}_c$ is an indicator for euro-denominated repos, $\text{EA Bank}_i$ indicates whether the borrower is a euro area bank, and $\text{Post}_t$ equals one following the mandatory maturity on 28 June 2023. $\alpha_i$ denotes borrower fixed effects, which absorb the standalone EA Bank effect. Because we do not have access to bank-level TLTRO repayment amounts, we cannot exploit cross-sectional variation in exposure intensity. Identification thus rests on comparing euro area banks against non-EA banks, which were not subject to mandatory repayment, and against the same EA banks' USD activity. 
+
+The coefficient of interest is $\beta_4$, the triple interaction. It isolates the change in cash-driven borrowing specific to the group most directly affected by TLTRO withdrawal, euro area banks, in the currency most directly affected (EUR), netting out any contemporaneous shifts common to non-EA banks or to USD repos. The sample covers three months before and after the event and is restricted to non-cleared, non-intragroup transactions involving government securities. We report results separately for short and longer repo maturities, motivated by the hypothesis that banks replace TLTRO term funding with term repos rather than short-term repos. We verify the identifying assumption in the term segment with a joint test of the pre-period triple-interaction coefficients, which fails to reject the null of parallel trends ($p = 0.51$, $F(11, 214)$). All regressions are weighted by average borrower repo volume and standard errors are clustered by borrower.
+
+Table \ref{tab:tltro_cash} reports the results. As motivated above, the term structure of TLTROs suggests that substitution might be concentrated in longer-maturity repos, since banks replacing a multi-year TLTRO position are unlikely to roll overnight funding each day instead of using term repos. Specifications (1) through (4) test this by splitting the sample at one month repo maturity. For maturities below one month in Specifications (1) and (2), the effect is economically small and statistically insignificant in both the EUR-only and triple-difference specifications, consistent with the view that banks do not substitute TLTRO funding into overnight or very short-term repo. For maturities of one month or more in Specifications (3) and (4), the pattern is different. The $EA Bank \times Post$ coefficient in Specification (3) is positive and statistically significant at 0.113, and the triple-difference coefficient in Specification (4) reaches 0.235 and is highly significant, indicating that euro area banks increased their cash-driven share in longer-maturity EUR repo borrowing by roughly 23 percentage points relative to the control groups.
+The remaining interactions support this interpretation. The negative EA Bank $\times$ Post coefficient shows that euro area banks' cash-driven share in USD borrowing, if anything, declined relative to non-EA banks, consistent with banks replacing the withdrawn euro liquidity in euro rather than dollar funding markets. The negative EUR $\times$ Post coefficient captures a contemporaneous shift among non-EA banks, which the triple difference nets out.
+
+
+\begin{table}[tbp]
+\centering
+\caption{Effect of Mandatory TLTRO Maturity on Cash-Driven Repo Share by Maturity}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]}
+\toprule
+ & {(1)} & {(2)} & {(3)} & {(4)} \\
+\textit{dep.\ var.:} & \multicolumn{4}{c}{Cash-driven share} \\
+ & \multicolumn{2}{c}{Maturity $<$ 1 month} & \multicolumn{2}{c}{Maturity $\geq$ 1 month} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+ & {EUR only} & {EUR \& USD} & {EUR only} & {EUR \& USD} \\
+\midrule
+EA Bank $\times$ Post & 0.010 & 0.017 & 0.113\sym{**} & -0.097\sym{*} \\
+ & (0.045{)} & (0.026{)} & (0.054{)} & (0.054{)} \\
+EUR $\times$ Post & & 0.024 & & -0.167\sym{**} \\
+ & & (0.036{)} & & (0.075{)} \\
+EA Bank $\times$ EUR & & -0.227 & & -0.039 \\
+ & & (0.310{)} & & (0.076{)} \\
+EA Bank $\times$ EUR $\times$ Post & & 0.029 & & 0.235\sym{***} \\
+ & & (0.059{)} & & (0.083{)} \\
+Post & 0.026 & -0.029 & -0.097\sym{*} & 0.045 \\
+ & (0.021{)} & (0.021{)} & (0.052{)} & (0.042{)} \\
+EUR & & -0.155 & & -0.046 \\
+ & & (0.122{)} & & (0.063{)} \\
+Constant & 0.147\sym{***} & 0.561\sym{***} & 0.088\sym{***} & 0.158\sym{***} \\
+ & (0.019{)} & (0.117{)} & (0.007{)} & (0.031{)} \\
+\midrule
+Borrower FE & {Y} & {Y} & {Y} & {Y} \\
+\midrule
+{Observations} & {2,760} & {4,759} & {3,357} & {4,790} \\
+{R$^2$} & {0.909} & {0.722} & {0.934} & {0.838} \\
+\bottomrule
+\end{tabular*}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: The dependent variable is the share of cash-driven transactions in total repo borrowing. Cash-driven transactions are those conducted with a general collateral basket. `EUR' equals one if the transaction is euro-denominated. `EA Bank' equals one if the bank is operating in the euro area either via a subsidiary or via headquarters, which implies having access to ECB facilities. This definition differs from the one in Fact 1. `Post' equals one for weeks starting \mbox{June 28, 2023}, the date of the mandatory TLTRO III maturity. The event window spans three months before and after this date. The sample is restricted to non-cleared, non-intragroup transactions involving government securities. Specifications (1)--(2) restrict to transactions with a maturity below one month. Specifications (3)--(4) restrict to transactions with a maturity of one month or more. Within each pair, the first column restricts to EUR-denominated transactions and compares EA to non-EA banks, and the second adds USD as a within-bank control through a triple interaction. All specifications include borrower fixed effects and are weighted by average borrower repo volume. Standard errors are clustered by borrower and reported in parentheses. \sym{***}\,$p<0.01$, \sym{**}\,$p<0.05$, \sym{*}\,$p<0.1$.}}
+\label{tab:tltro_cash}
+\end{table}
+
+
+\paragraph{Fact \#3: main take-aways.}
+Overall, these results are consistent with central bank liquidity provision being a significant driver of  the composition of repo market activity. When cheap Eurosystem funding is withdrawn, affected banks substitute toward market-based cash sourcing via general collateral repos. Importantly, these findings also tie back to Fact 2 by highlighting the importance of considering the full term structure of repo markets instead of focusing exclusively on the overnight segment.
+
+
+\subsection[Fact \#4 -- Internal capital markets are behind a significant share of cross-border repo]{Fact \#4 -- Internal capital markets are behind a significant share of cross-border repo}
+
+\paragraph{Documenting the pattern: descriptive evidence.}
+Banking groups have long used internal capital markets to reallocate liquidity across affiliates \citep{campello2002, cetorelli2012}. Given the central role of collateral documented in the previous facts, a natural question is whether they also use these networks to reallocate collateral. We focus on intragroup repos, transactions between two entities of the same banking group, in which competitive aspects play a smaller role in determining terms. 
+%CRR: article 113(6), 400(1)(f), 400(2)(c), 429(7). 
+
+\begin{figure}[!htbp]
+    \centering
+    \caption{Outstanding volumes of intragroup transactions by banking group nationality}
+       \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \caption{\textbf{Euro}}
+        \label{fig:teste} % Make sure label follows caption
+        \includegraphics[width=\textwidth]{Charts/Fact 4/EUR_int_nationality.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \caption{\textbf{Dollar}}
+        \label{fig:usd_int_nat} % Make sure label follows caption
+        \includegraphics[width=\textwidth]{Charts/Fact 4/USD_int_nationality.png}
+    \end{subfigure}
+    \par\vspace{0.5em}
+    \caption*{\parbox{\textwidth}{Note: The graphs show outstanding volumes of intragroup transactions by nationality of the parent banking group. Intragroup transactions are repo trades between two entities belonging to the same banking group. The nationality categories are the euro area (EA), the United States (US), and the rest of the world (ROW). Only bilateral transactions are included. Panel (a) shows euro-denominated transactions and panel (b) shows dollar-denominated transactions. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+    \label{fig:int_nat}
+\alttext{Two stacked area charts of outstanding intragroup repo volumes by nationality of the parent banking group, euro area, United States, or rest of the world, from January 2021 to April 2024. Euro intragroup volumes rise from about 450 to about 650 billion euros and are dominated by US banking groups, followed by euro area groups. Dollar intragroup volumes rise from about 150 to about 350 billion euros and are dominated by euro area banking groups.}
+\end{figure}
+
+Figure \ref{fig:int_nat} shows that intragroup transactions are substantial in both currencies, with approximately \euro 540 billion outstanding in EUR and \euro 280 billion in USD. The composition by nationality of the banking group differs sharply across the two. EA banking groups dominate USD intragroup activity (Panel B), which complements Fact 1. The same banks that intermediate dollars externally also use internal networks to move dollars across affiliates. EUR intragroup is more balanced across nationalities (Panel A), with US groups accounting for a share comparable to EA banks. This asymmetry across currencies mirrors that of cross-border banking footprints. Many non-US banks run large dollar books, while fewer non-EU banks run large euro books.
+
+Where do these intragroup flows actually run? Table \ref{tab:intra_flows} breaks down activity by the residence of the participating entities. EUR intragroup is concentrated within the euro area or between the euro area and the UK, as indicated by almost offsetting net positions, with negligible flows between UK and US entities. USD intragroup looks different. Net positions indicate that most flows run between the UK and the US, while direct EA-to-US activity seems small. EA banks therefore route most of their dollar intragroup activity through UK subsidiaries, mirroring the geographic structure of the original Eurodollar market \citep{schenk1998}.
+
+
+
+\begin{table}[tbp]
+\centering
+\caption{Intragroup repo positions by residence}
+\footnotesize
+\setlength{\tabcolsep}{14pt}
+\begin{tabular}{@{}l
+  S[table-format=3.1]
+  S[table-format=3.1]
+  S[table-format=-2.1]@{}}
+\toprule
+ & {Lending} & {Borrowing} & {Net} \\
+\midrule
+\multicolumn{4}{l}{\textit{Panel A: Euro}} \\
+Euro area      & 343.6 & 353.5 & \textbf{-10.0} \\
+Great Britain  & 192.9 & 183.0 &   \textbf{9.9} \\
+Other non-EA   &   6.6 &   6.9 &  -0.4 \\
+United States  & {$<5$} & {$<5$} & {$<5$} \\
+\midrule
+\multicolumn{4}{l}{\textit{Panel B: Dollar}} \\
+Euro area      &  55.0 &  48.4 &   6.6 \\
+Great Britain  &  63.7 & 108.3 & \textbf{-44.6} \\
+Other non-EA   &   1.1 &   6.7 &  -5.6 \\
+United States  & 160.6 & 117.0 &  \textbf{43.6} \\
+\bottomrule
+\end{tabular}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: The table reports intragroup repo positions by residence of the participating entities, meaning the jurisdiction in which the entity is located. Only bilateral transactions are included. Lending and borrowing are average daily outstanding volumes in billion euros and Net is lending minus borrowing. Transactions between two entities in the same jurisdiction enter both lending and borrowing, so each column separately, not their sum, corresponds to the total in Figure~\ref{fig:int_nat}. Entries for the United States in Panel A are suppressed for confidentiality and lie below the bound shown. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+\label{tab:intra_flows}
+\end{table}
+
+
+\begin{comment}
+    
+
+\begin{figure}[tbp]
+\centering
+\caption{Outstanding intragroup flows by currency}
+\begin{subfigure}{0.45\textwidth}
+\captionsetup{position=top, skip=5pt}
+   \caption{Euro}
+   \includegraphics[width=\linewidth]{Charts/Fact 4/euro_intra_update.pdf}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+\captionsetup{position=top, skip=5pt}
+   \caption{Dollar}
+   \includegraphics[width=\linewidth]{Charts/Fact 4/dollar_intra_update.pdf}
+\end{subfigure} 
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: This figure shows the flow of cash in intragroup transactions, meaning repos between entities of the same banking group, broken down by the residence of the entities. Only bilateral transactions are included. Arrows point from the cash lender to the cash borrower. Numbers are average daily outstanding volumes in billion euros. Panel (a) shows euro-denominated transactions and panel (b) shows dollar-denominated transactions. EA refers to the euro area and US refers to the United States. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+\label{fig:intra_flows}
+\alttext{Two network diagrams of intragroup repo cash flows between the euro area, Great Britain, and the United States, including flows within each jurisdiction. In euro repos, flows concentrate between the euro area and Great Britain, with 201.7 billion euros from Great Britain to the euro area, 175.6 billion in the opposite direction, and 131.9 billion within the euro area, while flows involving the United States are negligible. In dollar repos, the largest flows run from the United States to Great Britain (90.9 billion euros) and within the United States (54.0 billion), with smaller flows from Great Britain and the euro area to the United States.}
+\end{figure}
+\end{comment}
+
+\paragraph{Investigating the mechanism: quasi-causal evidence.}
+The descriptive evidence above establishes that intragroup transactions are a quantitatively large component of cross-border repo activity. A natural question is whether these internal transactions serve only the traditional purpose of liquidity management, or whether they also facilitate the reallocation of specific securities across entities. Because repos involve collateral, internal transactions can in principle be used for both.
+
+We test for this securities reallocation channel by exploiting variation in collateral specialness across bonds and over time. Specialness captures the intensity of demand for a specific security. When a bond is highly sought after, its repo rate declines as market participants accept lower returns on their cash in exchange for obtaining it \citep{duffie1996}. If intragroup transactions also serve a securities reallocation function, we expect internal volumes to increase disproportionately when specific bonds become scarce, as banking groups mobilize their internal markets to channel sought-after collateral to the entity that needs it.
+
+We classify a bond as ``on special'' if its repo rate is at least 10 basis points below the reference rate, consistent with the threshold used in Section \ref{sec:fact3}. We estimate the following specification with weekly data:
+\begin{equation}
+\begin{aligned}
+\text{Volume}_{s,g,t} = {} & \alpha_s + \gamma_t
++ \beta_1 \, \text{Special}_{s,t-1}
++ \beta_2 \, \text{Intragroup}_{g}
++ \beta_3 \, \text{Special}_{s,t-1} \times \text{Intragroup}_{g} \\
+& + \beta_4 \, \text{USD}_{s}
++ \beta_5 \, \text{Special}_{s,t-1} \times \text{USD}_{s}
++ \beta_6 \, \text{Intragroup}_{g} \times \text{USD}_{s} \\
+& + \beta_7 \, \text{Special}_{s,t-1} \times \text{Intragroup}_{g} \times \text{USD}_{s}
++ \varepsilon_{s,g,t}
+\end{aligned}
+\end{equation}
+% Claude query B [FOR FELIX -- please check against the code]: USD is indexed by security ($USD_s$) yet the specification includes security fixed effects $\alpha_s$ -- a time-invariant security-level dummy would be absorbed. Since Table V reports a USD coefficient with Security FE = Y, the effective unit of observation is presumably security x type x currency x week; consider indexing USD accordingly (and stating the panel unit) so a referee does not read the spec as collinear.
+where the dependent variable is the average weekly volume for security $s$, transaction type $g$ (intragroup or non-intragroup bilateral), in week $t$. $\text{Special}_{s,t-1}$ is an indicator equal to one if the security was trading on special in the prior week. $\text{Intragroup}_{g}$ indicates transactions between entities of the same banking group. $USD_s$ is a dummy that is equal to 1 if the transaction is dollar-denominated. $\alpha_s$ denotes security fixed effects, which absorb time-invariant differences across bonds such as issuer, coupon, and maturity. $\gamma_t$ denotes week fixed effects, which absorb aggregate time trends. The coefficients of interest are $\beta_3$ and $\beta_7$, which test whether intragroup volumes respond more strongly to collateral scarcity than non-intragroup bilateral volumes, which would be consistent with a securities reallocation role of intragroup trades. Identification comes from within-bond variation in specialness status over time. Specifications (1) and (2) present restricted versions using only intragroup transactions. The sample is restricted to bilateral transactions collateralized by government securities. Standard errors are two-way clustered by security and week.
+
+Table \ref{tab:specialness_intragroup} reports the results. Specification (1) shows that when a bond was trading on special, average weekly intragroup volumes increase by approximately \euro 34 million. This is economically meaningful relative to the baseline average of \euro 431 million and is statistically significant at the 1\% level. Specification (2) introduces a currency interaction and shows that the effect is present in both euro and dollar-denominated transactions.
+
+Specification (3) extends the analysis by comparing intragroup to non-intragroup bilateral transactions. The coefficient on $\text{Special} \times \text{Intragroup}$ is large and highly significant at \euro 113 million, while the standalone specialness coefficient, capturing the response of non-intragroup bilateral transactions, is statistically insignificant. This indicates that the volume response to collateral scarcity is more prevalent in intragroup transactions than in bilateral activity, consistent with banking groups mobilizing their internal capital markets when a bond becomes scarce. As Specifications (2) and (3) show, this effect is not unique to one currency but applies in both euro- and dollar-denominated transactions.
+
+\paragraph{Fact \#4: main take-aways.}
+These results provide evidence consistent with the view that intragroup repos also serve a securities reallocation function, alongside their traditional liquidity management role. The secured nature of repo gives internal capital markets a dual role that is absent in unsecured interbank lending.
+
+\begin{table}[tbp]
+\centering
+\caption{Specialness and Intragroup Repo Volumes}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l
+  S[table-format=-3.2, table-space-text-post={\sym{***}}]
+  S[table-format=-3.2, table-space-text-post={\sym{***}}]
+  S[table-format=-3.2, table-space-text-post={\sym{***}}]}
+\toprule
+ & {(1)} & {(2)} & {(3)} \\
+\textit{dep.\ var.:} & {Intragroup vol.} & {Intragroup vol.} & {Bilateral vol.} \\
+\midrule
+Special & 34.77\sym{***} & 26.53\sym{**} & -33.51 \\
+ & (10.16{)} & (11.34{)} & (21.72{)} \\
+Intragroup & & & -392.62\sym{***} \\
+ & & & (30.25{)} \\
+Special $\times$ Intragroup & & & 112.75\sym{***} \\
+ & & & (26.94{)} \\
+USD & & -479.91\sym{***} & -359.56\sym{***} \\
+ & & (171.53{)} & (125.11{)} \\
+ Special $\times$ USD & & 19.93 & 40.18 \\
+ & & (19.32{)} & (30.45{)} \\
+Intragroup $\times$ USD & & & -102.89\sym{**} \\
+ & & & (40.09{)} \\
+ Special $\times$ Intragroup $\times$ USD & & & 19.87 \\
+ & & & (44.27{)} \\
+Constant & 431.19\sym{***} & 644.67\sym{***} & 901.97\sym{***} \\
+ & (5.76{)} & (74.40{)} & (65.72{)} \\
+\midrule
+Security FE & {Y} & {Y} & {Y} \\
+Week FE & {Y} & {Y} & {Y} \\
+\midrule
+{Observations} & {255,125} & {255,125} & {619,889} \\
+{R$^2$} & {0.612} & {0.614} & {0.572} \\
+\bottomrule
+\end{tabular*}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: The dependent variable is the average weekly volume in million euros at the security--week level. `Special' equals one if the security's repo rate was at least 10 basis points below the deposit facility rate for EUR or the interest on reserve balances for USD in the previous week. `Intragroup' equals one if the transaction is between entities of the same banking group. `USD' equals one if the transaction is dollar-denominated. The sample is restricted to bilateral transactions collateralized by government securities. Specifications (1) and (2) restrict the sample to intragroup transactions. Specification (3) includes both intragroup and non-intragroup bilateral transactions. All specifications include security and week fixed effects. Standard errors are two-way clustered by security and week and reported in parentheses. \sym{***}\,$p<0.01$, \sym{**}\,$p<0.05$, \sym{*}\,$p<0.1$. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+\label{tab:specialness_intragroup}
+\end{table}
+
+
+The evidence extends the internal capital markets literature on liquidity reallocation \citep{deHaas2010, cetorelli2011, cetorelli2012a, houston2012} to collateral. Banking groups use internal networks to move scarce securities across affiliates, with cross-border flows routed through a small number of hubs, especially the UK \citep{mcguire2024, hardy2024}. The same softer competitive pressure inside banking groups also shapes the terms of these trades, where intragroup transactions stand out for a particularly high incidence of negative haircuts (Fact 5).
+
+
+\subsection[Fact \#5 -- Negative haircuts are a common feature of repo markets]{Fact \#5 -- Negative haircuts are a common feature of repo markets}
+\label{subsec:fact5}
+
+\paragraph{Documenting the pattern: descriptive evidence.}
+The previous facts have established  the balance between cash- and collateral-driven motives (Fact 3) and the importance of internal markets in allocating collateral (Fact 4). A natural next step is to ask how this collateral focus shows up in the pricing of trades. In repo, two prices are negotiated. The repo rate prices the loan, and the haircut determines how much cash the borrower receives per unit of collateral. Conventionally, haircuts are taken to be non-negative so that they serve as a risk-management buffer protecting the cash lender against borrower default and collateral value fluctuations \citep{gorton2010, copeland2014, krishnamurthy2014, gottardi2019}. In a market where collateral itself is sought after, however, the collateral lender can extract a premium, which materializes as a negative haircut. The cash borrower then receives more funding than the market value of the security, with the excess implicitly compensating the collateral provider for the risk that the cash side fails to return the collateral. This is the mechanism in \citet{infante2019}, who shows that in specific repo transactions where collateral is valued very highly, haircuts can be negative. Moreover, \citet{bejarano2025} attribute negative haircuts to dealers' balance sheet capacity and the regulatory treatment of Treasury repo. 
+
+Figure \ref{fig:neg_pos_share} shows the share of outstanding volumes with explicitly negative or positive haircuts, separately for EUR and USD. Two features stand out. First, a large share of outstanding volumes have exactly zero haircuts. This is in line with \citet{hempel2023}, who report that over 70\% of US non-centrally cleared Treasury repo transact at zero haircuts. This might reflect portfolio-margining arrangements in which collateralization is set at the portfolio rather than the transaction level, repeated bilateral relationships \citep{julliard2022}, or netting practices. Second, negative values are surprisingly common. The share of negative-haircut transactions averages 9\% of euro-denominated and 4\% of dollar-denominated outstanding volumes and reaches 14\% in EUR at the start of our sample. As Figure \ref{fig:neg_pos_share} makes clear, this share is substantial relative to that of explicitly positive-haircut transactions with around 12\% for EUR  and 25\% for USD repos. That negative haircuts are common at all sits in tension with the conventional view of haircuts as a risk buffer for the cash lender.
+
+\begin{figure}[tbp]
+    \centering
+    \caption{The share of negative and positive haircut transactions in outstanding volumes}
+    \includegraphics[width=0.8\linewidth]{Charts/Fact 5/share_negatives_positives.png}
+    \par\vspace{0.5em}
+    \caption*{\parbox{\textwidth}{Note: This figure shows the share of outstanding volumes with negative or positive haircuts, separately for euro-denominated and dollar-denominated transactions. A negative (positive) haircut means that the cash borrower receives more (less) funding than the market value of the pledged collateral. All clearing types are considered. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+    \label{fig:neg_pos_share}
+\alttext{Line chart of the shares of outstanding volume with negative and with positive haircuts in euro and dollar repos from January 2021 to April 2024. Positive haircuts in dollar repos are the largest category, ranging between about 18 and 33 percent. The euro positive-haircut share rises from about 9 to about 17 percent from mid-2022 onward, while the euro negative-haircut share declines from about 10 to about 7 percent during 2023. The dollar negative-haircut share stays between about 2 and 5 percent.}
+\end{figure}
+
+
+The time-series evidence further points to an important role for central bank balance sheet policy in affecting haircuts. In USD, the share of positive-haircut transactions begins to rise after early March 2022, when the Federal Reserve concluded its asset purchase program. In EUR, the shares of positive and negative haircuts both fluctuate around 10\% until around April 2022 and then start to diverge, with positive shares rising and negative shares declining, coinciding with the end of net purchases under the ECB's PEPP. This pattern is conceptually consistent with the evidence on the TLTRO~III repayments documented in Fact 3. As central bank balance sheets stop expanding, cash becomes scarcer relative to collateral, and the composition of repo activity shifts toward cash-driven motives. The trades that result carry standard positive haircuts protecting the cash lender.
+
+Why are negative haircuts so prevalent? The descriptive evidence is consistent with three non-exclusive mechanisms, each connecting back to patterns documented in earlier facts. 
+
+First, consistent with Fact 4, negative repo haircuts may reflect, at least in part, preferential terms within intragroup transactions. Figure \ref{fig:hc_drivers} shows that almost 30\% of euro-denominated intragroup transactions feature negative haircuts. Yet negative haircuts persist even after excluding intragroup activity, pointing to additional drivers.
+
+Second, negative haircuts may reflect the impact of market power and the bargaining position of counterparties. Connecting to Fact 3 and the rising role of NBFIs, Figure \ref{fig:hc_drivers} shows that negative haircuts occur in a large share of trades when dealers borrow cash from entities such as investment funds but are very uncommon in trades between two dealers. This finding suggests that dealers use their stronger market position to secure favorable terms when borrowing from non-dealer counterparties. Under this interpretation, the negative haircut prices the parties' relative needs. Investment funds seek to place abundant cash, dealers supply the collateral in demand, and the premium accrues to the scarcer side. The haircut is then a bargaining outcome rather than a risk buffer for the cash lender.
+
+
+Third, negative haircuts are more likely to arise in specific repos, when collateral is in high demand. If a security is in high demand (``on special''), the cash borrower (collateral provider) can negotiate terms that provide more cash than the collateral is worth, i.e., the haircut becomes negative. Figure \ref{fig:hc_drivers} shows that negative haircuts are more common for euro area than for US securities, consistent with more pronounced collateral scarcity in the euro area \citep{nguyen2023}.
+
+
+\begin{figure}[tbp]
+    \centering
+    \caption{Transactions with negative haircuts in the cross section}
+       \begin{subfigure}[b]{0.85\textwidth}
+       \hspace{-75pt}
+        \centering
+        \includegraphics[width=\textwidth]{Charts/Fact 5/neg_hc_all.png}
+        \label{fig:eur_int_nat}
+        \vspace{-15pt}
+    \end{subfigure}
+    \vspace{-15pt}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Charts/legends/EUR_USD.png}
+    \end{subfigure}
+    \par\vspace{0.5em}
+    \caption*{\parbox{\textwidth}{Note: This chart shows shares of outstanding volumes with negative haircuts for different subsets of bilateral transactions. The Intragroup bar covers all intragroup transactions. All other bars exclude intragroup transactions and are restricted to overnight transactions. The Overall bar and the Sector pair bars are further restricted to transactions collateralized by government bonds. The Sector pair bars consider counterparty pairs, where the left label refers to the cash lender (collateral taker), and the right label refers to the cash borrower (collateral provider). The Collateral bars show the share of negative haircuts by collateral type. IF refers to investment funds. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+    \label{fig:hc_drivers}
+\alttext{Horizontal bar chart of the share of outstanding volume with negative haircuts in euro and dollar repos across transaction subsets. The overall shares are about 8 percent for euro and 3 percent for dollar repos. Shares are highest in intragroup trades, about 29 percent for euro and 5 percent for dollar repos, and in trades in which investment funds lend cash to dealers, about 24 and 11 percent. Trades between dealers and trades in which non-dealer banks lend to dealers show shares close to zero. Across collateral types, government bonds show the highest shares.}
+\end{figure}
+
+
+\paragraph{Investigating the mechanism: quasi-causal evidence.}
+These descriptive patterns are suggestive, but they cannot distinguish whether collateral scarcity causes negative haircuts or whether both are driven by an unobserved third factor. To provide evidence for a causal link, we exploit sovereign bond reopenings as a source of (quasi-)exogenous variation in collateral supply. A bond reopening occurs when a government issues additional amounts of an already existing bond. The new bonds share the same maturity date and coupon rate as the original issue but are sold at a later date, typically at a different price reflecting current market interest rates. Issuance decisions may in principle reflect a range of considerations. However, sovereign bond reopenings are typically scheduled months in advance and we find no empirical evidence that the share of negative-haircut transactions for a given bond, or whether the bond is trading on special, predicts reopening events. Specifically, regressions of a reopening dummy on lagged values of the negative-haircut share or an on-special indicator at the bond level yield no significant relationship. A reopening therefore provides a plausibly exogenous positive shock to the outstanding supply of a specific security. This approach follows the literature linking variation in bond supply to repo market scarcity premia \citep{corradin2020}. If collateral scarcity is a driver of negative haircuts, we expect the share of negative-haircut transactions to decline after a reopening increases the supply of the bond.
+
+We estimate the following regression:
+\begin{equation}
+    \text{NegHaircut}_{s,t} = \alpha_s + \beta \, \text{Post}_{s,t} + \varepsilon_{s,t}
+\end{equation}
+where $\text{NegHaircut}_{s,t}$ is the share of transactions with negative haircuts involving security $s$ as collateral in week $t$. $\text{Post}_{s,t}$ is a dummy equal to one on or after the reopening date of bond $s$ and zero otherwise. The sample is restricted to a symmetric window of four weeks before and after each reopening, and only bonds with multiple issuances are considered.  Specifications (1) and (2) use only intragroup transactions, without and with security fixed effects. Specifications (3) and (4) repeat this on non-intragroup transactions. Specifications (5) and (6) further restrict the non-intragroup sample to transactions in which the cash lender is a dealer and an investment fund, respectively. Identification in the fixed-effects specifications comes from within-bond variation, comparing the share of negative-haircut transactions for a given bond in the weeks before a reopening to the weeks after, when the outstanding supply of that same bond has increased. Standard errors are clustered by security to account for serial correlation within the same bond over time.
+
+Table \ref{tab:haircut_results} reports the results. The effect of reopenings on the share of negative-haircut transactions is concentrated in non-intragroup trades. Specifications (1) and (2) show no significant response of negative haircuts in intragroup transactions, and the pre-reopening baseline is markedly higher at around 37\%. By contrast, in Specifications (3) and (4), the Post Reopening coefficient is negative and statistically significant, with the within-bond estimate of $-0.007$ implying a decline of roughly 7\% relative to the pre-reopening baseline of 9.7\%. This pattern is consistent with the interpretation that intragroup negative haircuts are driven by preferential terms between related entities rather than by market conditions, while non-intragroup negative haircuts respond directly to the supply of the underlying collateral. This complements Fact 4, where collateral scarcity moves volumes more strongly within banking groups than in arm's-length trades. For haircuts the pattern is reversed, with a significant response in arm's-length trades and no detectable response within groups.
+
+Specifications (5) and (6) further decompose the non-intragroup response by cash lender type. When dealers are on the cash lending side, the reopening effect is small and insignificant. When investment funds are on the cash lending side, the effect is large and highly significant, with a coefficient of $-0.017$ on a pre-reopening baseline of 22.9\%. This asymmetry is consistent with a collateral scarcity channel that operates through bargaining power. When a bond is scarce, dealers effectively control access to the security and can extract favorable terms from counterparties that need it, leading to negative haircuts in trades with investment funds. A reopening increases the supply of the bond and reduces this scarcity, which weakens dealers' bargaining position. As a result, the incidence of negative haircuts declines precisely in the trades where it was most prevalent prior to the reopening.
+
+
+One potential objection is that haircuts and repo rates are set jointly, so negative haircuts might be offset by higher repo rates. Figure \ref{fig:hc_rate_corr} in the Internet Appendix shows that this is not the case empirically. Correlations between haircuts and repo rates are positive for most sample splits and generally low, indicating that negative haircuts are typically not compensated for by higher rates.
+
+\begin{table}[tbp]
+\centering
+\caption{Impact of Bond Reopenings on Negative Haircuts}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]}
+\toprule
+ & \multicolumn{2}{c}{Intragroup} & \multicolumn{2}{c}{Non-Intragroup} & {Dealer} & {IF} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-6} \cmidrule(lr){7-7}
+ & {(1)} & {(2)} & {(3)} & {(4)} & {(5)} & {(6)} \\
+\textit{dep.\ var.:} & \multicolumn{6}{c}{Share of negative haircuts} \\
+\midrule
+Post Reopening &  0.043          &  0.002          & -0.031\sym{**}  & -0.007\sym{*}   & -0.002          & -0.017\sym{**}  \\
+               & (0.072{)}       & (0.006{)}       & (0.015{)}       & (0.004{)}       & (0.003{)}       & (0.007{)}       \\
+Constant       &  0.357\sym{***} &  0.379\sym{***} &  0.111\sym{***} &  0.097\sym{***} &  0.052\sym{***} &  0.229\sym{***} \\
+               & (0.040{)}       & (0.003{)}       & (0.009{)}       & (0.002{)}       & (0.002{)}       & (0.004{)}       \\
+\midrule
+Security FE    &                 & {Y}             &                 & {Y}             & {Y}             & {Y}             \\
+\midrule
+{Observations} & {168}           & {5,964}         & {168}           & {5,905}         & {5,785}         & {5,349}         \\
+{R$^2$}        & {0.002}         & {0.374}         & {0.022}         & {0.344}         & {0.439}         & {0.381}         \\
+\bottomrule
+\end{tabular*}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: The dependent variable is the share of outstanding volumes with negative haircuts for a given bond in a given week. `Post Reopening' equals one after the date at which a sovereign issuer reopens an existing bond, meaning it issues additional amounts of the same security, thereby increasing its outstanding supply. Due to data availability, the sample is restricted to French, German, or Italian sovereign bonds  with multiple issuances and we set a symmetric window of four weeks before and after each reopening. Specifications (1)--(2) use intragroup repo transactions. Specifications (3)--(4) use non-intragroup transactions. Specifications (5) and (6) extend Specification (4) by restricting the non-intragroup sample to transactions where the cash lender is a dealer and an investment fund (IF), respectively. Specifications (1) and (3) are time-series regressions on weekly aggregates, so each observation is a week. Specifications (2), (4), (5), and (6) include security fixed effects, so identification comes from within-bond variation in the negative-haircut share around reopenings. Standard errors are clustered by security ISIN and reported in parentheses. \sym{***}\,$p<0.01$, \sym{**}\,$p<0.05$, \sym{*}\,$p<0.1$. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+\label{tab:haircut_results}
+\end{table}
+
+
+\paragraph{Fact \#5: main take-aways.}
+Prior work has documented negative haircuts and rationalized them in US and UK markets \citep{baklanova2019, infante2019, hempel2023, bejarano2025}. We expand upon this by showing that they are a prominent feature of euro and international dollar repo, trace them to three distinct forces -- collateral scarcity, dealers' market power over non-bank counterparties, and preferential terms inside banking groups -- and provide quasi-causal evidence, from sovereign bond reopenings, for the scarcity channel. These results sharpen the paper's central message that in modern repo markets, collateral is not merely a risk buffer for the cash lender but an asset that can command a premium of its own. Negative haircuts are then not an anomaly but a structural feature of this environment, reflecting the same collateral demand that shapes scale, term structure, motives, and internal flows in the preceding facts.
+
+
+\section{Conclusion}
+\label{section:conclusion}
+
+
+This paper sheds light on the international dimension of the dollar repo market, the  modern, secured successor of the Eurodollar market. This shift to a secured market for cross-border dollar funding is highly consequential  and we show that the availability and pricing of collateral organize the structure of this market across every  dimension we study. Our results highlight three key themes. First, activity concentrates in the bilateral segment, which is structurally distinct from centrally cleared and triparty repo. It is here that banks and non-banks meet, with hedge funds and other NBFIs integral to the market. Second, euro area banks are important nodes in dollar intermediation. Rather than acting as passive participants, they step in when US markets come under stress. Third, collateral is the organizing force of the market. Its supply and demand determine how securities move within banking groups, through internal networks that echo the geography of the old Eurodollar market. They  shape how trades are priced, reflected in the zero and sometimes negative haircuts we document. Our (quasi-) causal experiments show significant substitution effects between currencies, maturities and market participants in response to shocks that shed new light on the working of cross-border dollar intermediation and the resilience and potential vulnerabilities of this market.
+
+These features make the market segment we study central to financial stability and change what needs to be monitored. International dollar funding has repeatedly been at the epicenter of global stress. Given shifts in the global financial system, the international dollar repo market now sits at the intersection of two first-order concerns: the resilience of banks' dollar funding and the leverage of non-bank intermediaries. Euro area banks' capacity to intermediate dollars, and to step in during US stress, depends on the collateral they can mobilize, which raises the importance of central bank swap lines as a backstop \citep{bahaj2022, menand2023}. Standard monitoring also falls short. Leverage can look deceptively low when haircuts are negative, and intragroup flows follow different pressures than arm's-length trades. Because non-banks account for much of this activity, and the dollar leg runs through European banks and London hubs, effective oversight must reach beyond banks and across borders.
+
+For research, the paper reframes how repo is studied. Collateral, not just cash, is what organizes the market, and the bilateral segment is where cross-border, term, and collateral-driven activity concentrates. This opens several questions: how internal capital markets price and move collateral across jurisdictions, how negative haircuts should enter models of secured funding and leverage, and how shocks to collateral supply or dealer balance-sheet capacity propagate across the currency areas that this market ties together.
+We leave these questions for future work, but hope that the facts documented here provide a foundation for further research on the international repo market and its role in global financial stability.
+
+
+\clearpage
+
+\bibliography{references}
+\bibliographystyle{elsarticle-harv}
+
+\clearpage
+\begin{center}
+{\Large\textbf{Internet Appendix}}\\[0.4cm]
+{\large for}\\[0.4cm]
+{\Large\textbf{``The International Dimension of Repo: Five Facts''}}\\[0.6cm]
+{\normalsize (For online publication)}
+\end{center}
+
+
+\renewcommand{\thepage}{A -- \arabic{page}}
+\setcounter{page}{1}
+
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+
+\renewcommand{\theHsection}{IA.\arabic{section}}
+\renewcommand{\thesection}{IA.\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\setcounter{equation}{0}
+\renewcommand{\theequation}{IA.\arabic{equation}}
+
+\renewcommand\thetable{IA.\arabic{table}} \setcounter{table}{0}
+\renewcommand\thefigure{IA.\arabic{figure}} \setcounter{figure}{0}
+
+\titleformat{\section}
+    {\normalsize\bfseries}
+    {\thesection.}
+    {1em}
+    {}
+
+\clearpage
+\section{Data cleaning}
+\label{sec:cleaning}
+
+We implement a rigorous data cleaning process to ensure the robustness of our analysis.
+\paragraph{Deduplication.} First, and most important, we deduplicate the data. Since reporting under SFTR implies that \emph{all} entities must report all their SFTs, the data feature double counting. This can become increasingly complex if one of the counterparties to a transaction is not a reporting entity, or when CCPs are involved, which also have a reporting requirement. In the latter case, we can have up to six reports for the same transaction. We make use of the ECB's deduplication approach, which has been developed in the Directorate General Macroprudential Policy and Financial Stability. Due to this, every transaction is only recorded once in the final dataset that we use in our paper. 
+\paragraph{Further cleaning.} Beyond deduplication, we have taken several steps to clean the data. First, we have ensured consistent timing of transactions. This means, for example, that we only consider transactions that have not yet matured and exclude those that have not yet settled.  Second, we have removed transactions with unrealistic terms, e.g., transactions that have a volume above \euro 100 billion and transactions in which the volume is multiple times larger than the total issue size of the underlying collateral. Third, we remove dates that are public holidays such as Easter or the US inauguration day, in which markets close in one or both jurisdictions (US or Euro Area). Fourth, we apply a filtering method that addresses a pattern in the data in which outstanding transactions are rolled over regularly with different terms, but the transactions with previous terms are never removed, leading to the accumulation of nearly identical transactions. Fifth, repo rates have been extensively cleaned, for example by identifying entities that temporarily reported rates in basis points instead of percentages, or by identifying transactions with clearly unrealistic rates (reporting errors). 
+
+
+\section{Reporting requirements by location}
+\label{sec:reporting}
+
+Figure \ref{fig:reporting} visualizes the reporting requirements underlying the SFTDS (based on the SFTR). The regulation mandates all entities established within the European Economic Area (EEA), branches of EEA-established entities located outside the EEA, and branches of non-EEA firms located inside the EEA to report their Securities Financing Transactions (SFTs). SFTDS represents the euro area subset of these reports.
+
+
+\section{Taxonomy}
+\label{sec:taxonomy}
+
+To categorize our data, we devise a simple taxonomy in Figure \ref{fig:taxonomy} that follows the decision-making process of market participants. The classification consists of \emph{three hierarchical levels} capturing the choices participants face when entering a repo transaction. Figure \ref{fig:taxonomy} also shows observed outstanding repo volumes to illustrate the relative magnitude of each segment.
+
+At the \emph{first level}, the transaction is defined by its underlying economic motive. In collateral-oriented trades, a specific security is relevant to at least one counterparty. In cash-driven trades, the objective is to borrow or lend cash without reference to a specific security. Following the literature, we classify trades with general collateral as ``cash-driven'' and trades with specific collateral as ``collateral-oriented'' \citep[see for example][]{mancini2016, brand2019, schaffner2019}.
+
+Quantitatively, collateral-oriented transactions dominate, accounting for approximately \euro 3.7 trillion (over 75\%) of daily outstanding euro- and dollar-denominated volumes, compared to approximately \euro 1 trillion (under 25\%) for cash-driven transactions. The motive is linked to the currency choice: to source euro collateral, an entity lends euro cash; to source dollar collateral, it lends dollar cash.\footnote{Cross-currency repos, where the loan currency differs from the collateral currency \citep[see][]{kohler2019}, are insignificant in terms of volumes.} Conversely, when the motive is to source cash, the specific funding need directly determines the transaction currency.
+
+Market participants must then decide on the appropriate clearing mechanism. The \emph{second level} of our taxonomy thus distinguishes between (i) centrally cleared, (ii) triparty, and (iii) bilateral repo transactions.\footnote{We categorize clearing categories as ``centrally cleared'' if a CCP clears a transaction, ``triparty'' if a triparty-agent is involved but no CCP, and ``bilateral'' otherwise. US clearing structures are more complex \citep{copeland2024}, but since FICC DVP, GCF, and sponsored repo are a small part of our data given the limited FICC membership of euro area entities, we combine them into ``centrally cleared'' transactions.} 
+
+The clearing choice differs starkly across currencies. Approximately 41\% of outstanding euro transactions are centrally cleared compared to 4\% of outstanding dollar transactions, largely because European central clearing counterparties (CCPs) clear only euro-denominated trades. Triparty repo, in contrast, is typically cash-driven, and euro area entities use this segment as a key channel to source dollar funding from money market funds \citep{chernenko2014,eren2020, aldasoro2022}.
+
+Finally, bilateral transactions, in which repos settle directly between counterparties without the intermediation of a CCP or a triparty agent, represent the quantitatively most important segment. They are also the primary venue for cross-border dollar intermediation. Given the structural differences between the clearing mechanisms in the two currency areas, bilateral transactions also provide the most suitable basis for a direct comparison between the euro and dollar repo markets, as the euro and dollar segments in this category are much more similar in size.  
+
+The \emph{third level} concerns the specific characteristics of a transaction, which we can observe due to the granularity and detailed coverage of the SFTDS. We observe  loan characteristics (repo rate, maturity, volume), counterparty attributes (legal identities, sectors, jurisdictions), and collateral attributes (type, haircut, maturity).
+
+This three-level taxonomy, covering transaction motive and currency choice, clearing mechanism, and transaction characteristics, serves as the organizing framework for the empirical analysis that follows.
+
+
+\section{Benchmarking SFTDS USD volumes against external aggregates}
+\label{sec:bisbenchmark}
+
+This section documents the construction of the two external benchmarks used in Section~\ref{section:data} to size the SFTDS USD activity, and discusses the assumptions involved.
+
+\subsection*{BIS Locational Banking Statistics (LBS): cross-border USD positions of euro area banks}
+
+The LBS figures are computed from BIS dataflow \texttt{WS\_LBS\_D\_PUB}  as the sum across the twelve EA reporting countries (Austria, Belgium, Germany, Spain, Finland, France, Greece, Ireland, Italy, Luxembourg, Netherlands, Portugal) of cross-border USD positions to non-resident counterparties, all instruments, all sectors. Two points are worth noting.
+
+First, the euro area is not available as a reporting-country aggregate in LBS. The reporting-country dimension only accepts individual countries, so the EA aggregate has to be constructed by summing individual reporting countries. The list above covers the twelve EA member states that report to LBS at end-2024.
+
+Second, BIS LBS classifies banks by residence rather than by SFTR reporter status. Foreign branches of euro area banks operating in London, New York, or other non-EA locations are recorded under the residence of the host jurisdiction, not under the euro area. The SFTR perimeter, by contrast, does capture these foreign branches when the parent is established in the EEA. The LBS-EA aggregate therefore understates the perimeter SFTDS covers, and the implied repo share of EA banks' cross-border USD activity reported in the main text is correspondingly an upper bound on the true share.
+
+\paragraph{Approximating the USD-specific loans-and-deposits share.} BIS LBS does not publish the loans-and-deposits instrument breakdown by currency for individual reporting countries. We therefore approximate the USD-specific share using the aggregate all-currencies share for the same set of EA reporting countries. At end-2024, the aggregate loans-and-deposits share of cross-border claims across the twelve EA reporting countries equals 52.3 percent, computed as \textdollar 7.71 trillion of loans and deposits out of \textdollar 14.75 trillion in total cross-border claims. We apply this share to the  USD figure of \textdollar 3.65 trillion to obtain implied USD loans-and-deposits claims of \textdollar 1.91 trillion. The implied repo share of this subset is then \textdollar 1 trillion (roughly half of the symmetric SFTDS USD outstanding) divided by \textdollar 1.91 trillion, which equals approximately 52 percent. If the USD loans-and-deposits share is in fact lower than the all-currencies average, as the relatively large stock of EA-bank holdings of US Treasury and US corporate debt securities would suggest, the implied repo share of EA cross-border USD loans and deposits is somewhat higher than this number.
+
+\subsection*{BIS Triennial Survey: EUR/USD FX swap turnover}
+
+{\sloppy The EUR/USD FX swap turnover figures are computed from BIS dataflow \texttt{WS\_DER\_OTC\_TOV}  for the headline net-net basis. The relevant dimensions are turnover daily average (\texttt{DER\_TYPE=U}), FX swaps (\texttt{DER\_INSTR=H}), FX risk (\texttt{DER\_RISK=B}), world (\texttt{DER\_REP\_CTY=5J}), all sectors (\texttt{DER\_SECTOR\_CPY=A}), all maturities (\texttt{DER\_ISSUE\_MAT=A}), and net-net basis (\texttt{DER\_BASIS=C}), with currency legs \texttt{EUR} and \texttt{USD}.\par}
+
+ The cross-tabulation by currency pair and instrument, which we use to identify EUR/USD FX swap turnover specifically, is available  through the  annex tables of the survey (in particular Table D11.4). The values reported in the main text are \textdollar 997.2 billion daily for April 2022 and \textdollar 861.8 billion daily for April 2025.
+
+\section{Caveat on the USD maturity mismatch}
+\label{subsec:fact2}
+
+The maturity mismatch for euro area dealer banks reported in Figure \ref{fig:mat_trans} should be interpreted with caution on the dollar side. Our regulatory data capture only a subset of the global dollar activity of euro area banks, and we cannot rule out that offsetting positions are held at entities outside the reporting scope of SFTDS. The estimated mismatch for EA dealers in USD should therefore be interpreted as an upper bound on the transformation they undertake on a consolidated basis. The euro-side estimate is not subject to this concern, as SFTDS provides comprehensive coverage of EUR repo activity by euro area entities.
+
+\section{Additional empirical results}
+
+\paragraph{Robustness of the SVB difference-in-differences to event-window length.} Tables \ref{tab:svb_impact_2m} and \ref{tab:svb_impact_6m} re-estimate the main specification using event windows of two and six months around the SVB failure, respectively. The estimates leave the qualitative conclusions unchanged. Euro area banks increase their dollar lending volumes significantly in both windows, with a difference-in-differences coefficient of 0.83 billion USD at the two-month horizon and 2.56 billion USD at the six-month horizon. The counterparty response follows the same pattern, with a significant extensive-margin effect of 3.81 additional counterparties in the six-month window and a positive but statistically insignificant effect of 1.14 in the two-month window, consistent with limited power over the shorter horizon. The intensive margin remains indistinguishable from zero across all windows.
+
+\paragraph{Placebo test for SA-CCR.} Table \ref{tab:saccr_maturity_placebo} reports a placebo version of the main specification estimated on non-EA banks transacting from outside the EU, together with third-country branches. These entities are not subject to CRR II and therefore not to the SA-CCR maturity factor schedule. If the maturity compression documented in the main analysis reflects SA-CCR rather than a common time trend around mid-2021, we should see no differential response of USD relative to EUR repo maturities for this placebo group. We find that the USD $\times$ Post coefficient is small and statistically insignificant in the ln(Maturity) regression, and none of the bucket-share coefficients are significant at conventional levels. The null result supports the interpretation that the main estimates capture a regulatory effect operating specifically through CRR-regulated entities.
+
+\section{Tables and figures}
+
+\begin{figure}[H]
+    \centering
+    \caption{Reporting requirements in SFTDS}
+    \includegraphics[width=1\linewidth]{Other/reporting.png}
+    \label{fig:reporting}
+\alttext{Decision tree showing which entities report to the Securities Financing Transactions Datastore. Entities located in the euro area, including branches and subsidiaries of foreign entities, report. Entities located outside the euro area report only if they are branches of a euro area entity; subsidiaries of euro area entities abroad and all other entities abroad do not report.}
+\end{figure}
+
+\clearpage 
+
+\begin{figure}[tbp]
+\caption{The repo market through the lens of the SFTDS}
+       \centering
+        \includegraphics[width=\textwidth]{repo_market_tikz.pdf}
+    \caption*{\parbox{\textwidth}{Note: This figure illustrates the three-level taxonomy used to classify repo transactions in the SFTDS. The first level distinguishes transaction motive (cash-driven versus collateral-oriented) and currency (euro versus dollar). The second level classifies the clearing mechanism (centrally cleared, bilateral, or triparty). The third level captures transaction characteristics (rate, maturity, volume, counterparty, and collateral attributes). Numbers are average daily outstanding volumes in billion euros. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+    \label{fig:taxonomy}
+\alttext{Three-level diagram of the repo market taxonomy with average daily outstanding volumes in billion euros. The first level splits volumes into euro (2,862) and dollar (1,821) and into cash-driven (976) and collateral-oriented (3,707) trades. The second level splits the centrally cleared, triparty, and bilateral segments by currency and motive: euro collateral-oriented trades dominate central clearing (1,150), dollar cash-driven trades dominate triparty repo (470), and bilateral repo is the largest segment, with 1,370 for euro and 1,095 for dollar collateral-oriented trades. The third level lists loan, counterparty, and collateral characteristics.}
+\end{figure}
+
+\begin{figure}[H]
+\caption{Outstanding volume by currency}
+       \centering
+        \includegraphics[width=\textwidth]{Charts/Fact 1/volume_growth.png}
+        \par\vspace{0.5em}
+    \caption*{\parbox{\textwidth}{Note: This chart shows outstanding volumes broken down by currency. All clearing types are considered.
+    The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+    \label{fig:volume_growth}
+\alttext{Stacked area chart of outstanding repo volumes in euros and dollars from January 2021 to April 2024. Total volumes rise from about 3 to about 6 trillion euros, with euro-denominated volumes growing from about 2 to about 3.5 trillion euros and dollar-denominated volumes from about 1 to about 2.5 trillion euros.}
+\end{figure}
+
+
+\clearpage
+
+
+\begin{table}[h!]
+\centering
+\caption{Impact of SVB Collapse on Transaction Volume (2-Month Window)}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-2.2, table-space-text-post={\sym{***}}]
+  S[table-format=-2.2, table-space-text-post={\sym{***}}]}
+\toprule
+ & {(1)} & {(2)} & {(3)} & {(4)} & {(5)} & {(6)} \\
+\textit{dep.\ var.:} & \multicolumn{2}{c}{Lending volume (bln \$)} & \multicolumn{2}{c}{N. counterparties} & \multicolumn{2}{c}{Avg.\ trade size (mln \$)} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+\midrule
+Post SVB                  & 0.88\sym{**}  & 0.05         & 1.14          & -0.00        & 1.27          & 5.93         \\
+                          & (0.43{)}      & (0.04{)}     & (0.73{)}      & (0.09{)}     & (2.18{)}      & (6.69{)}     \\
+Post SVB $\times$ EA Bank &               & 0.83\sym{*}  &               & 1.14         &               & -4.67        \\
+                          &               & (0.43{)}     &               & (0.73{)}     &               & (7.03{)}     \\
+Constant                  & 9.42\sym{***} & 3.60\sym{***}& 25.29\sym{***}&11.41\sym{***}& 35.20\sym{***}&31.20\sym{***}\\
+                          & (0.23{)}      & (0.08{)}     & (0.40{)}      & (0.15{)}     & (1.19{)}      & (2.28{)}     \\
+\midrule
+Lender FE                 & {Y}           & {Y}          & {Y}           & {Y}          & {Y}           & {Y}          \\
+\midrule
+{Observations}            & {556}         & {1,544}      & {556}         & {1,544}      & {556}         & {1,544}      \\
+{R$^2$}                   & {0.992}       & {0.993}      & {0.990}       & {0.991}      & {0.920}       & {0.778}      \\
+\bottomrule
+\end{tabular*}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: The dependent variables are the average weekly outstanding cash-lending volume in billion US dollars (specifications 1--2), the average weekly number of distinct borrower counterparties (specifications 3--4), and the average weekly transaction size in million US dollars (specifications 5--6). `Post SVB' equals zero before \mbox{March 10, 2023} and one afterwards, where SVB refers to Silicon Valley Bank. `EA Bank' equals one if the bank is part of a euro area banking group. The event window spans two months before and after the SVB failure. Only bilateral, non-intragroup transactions with government securities and only banks lending are considered. Specifications (1), (3), and (5) are restricted to EA banking groups. Specifications (2), (4), and (6) are difference-in-differences specifications comparing EA to foreign banking groups. All specifications include lender fixed effects. Standard errors are clustered by lender and reported in parentheses. \sym{***}\,$p<0.01$, \sym{**}\,$p<0.05$, \sym{*}\,$p<0.1$.}}
+\label{tab:svb_impact_2m}
+\end{table}
+
+
+\begin{table}[h!]
+\centering
+\caption{Impact of SVB Collapse on Transaction Volume (6-Month Window)}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-1.2, table-space-text-post={\sym{***}}]
+  S[table-format=-2.2, table-space-text-post={\sym{***}}]
+  S[table-format=-2.2, table-space-text-post={\sym{***}}]}
+\toprule
+ & {(1)} & {(2)} & {(3)} & {(4)} & {(5)} & {(6)} \\
+\textit{dep.\ var.:} & \multicolumn{2}{c}{Lending volume (bln \$)} & \multicolumn{2}{c}{N. counterparties} & \multicolumn{2}{c}{Avg.\ trade size (mln \$)} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+\midrule
+Post SVB                  & 2.63\sym{**}  & 0.07         & 4.04\sym{***} & 0.23         & -1.22         & 7.66         \\
+                          & (1.02{)}      & (0.05{)}     & (1.48{)}      & (0.17{)}     & (2.30{)}      & (8.82{)}     \\
+Post SVB $\times$ EA Bank &               & 2.56\sym{**} &               & 3.81\sym{**} &               & -8.88        \\
+                          &               & (1.01{)}     &               & (1.48{)}     &               & (9.12{)}     \\
+Constant                  & 8.56\sym{***} & 3.29\sym{***}& 23.61\sym{***}&10.74\sym{***}& 36.20\sym{***}&29.60\sym{***}\\
+                          & (0.53{)}      & (0.19{)}     & (0.77{)}      & (0.28{)}     & (1.19{)}      & (2.90{)}     \\
+\midrule
+Lender FE                 & {Y}           & {Y}          & {Y}           & {Y}          & {Y}           & {Y}          \\
+\midrule
+{Observations}            & {1,630}       & {4,540}      & {1,630}       & {4,540}      & {1,630}       & {4,540}      \\
+{R$^2$}                   & {0.975}       & {0.977}      & {0.975}       & {0.977}      & {0.767}       & {0.652}      \\
+\bottomrule
+\end{tabular*}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: The dependent variables are the average weekly outstanding cash-lending volume in billion US dollars (specifications 1--2), the average weekly number of distinct borrower counterparties (specifications 3--4), and the average weekly transaction size in million US dollars (specifications 5--6). `Post SVB' equals zero before \mbox{March 10, 2023} and one afterwards, where SVB refers to Silicon Valley Bank. `EA Bank' equals one if the bank is part of a euro area banking group. The event window spans six months before and after the SVB failure. Only bilateral, non-intragroup transactions with government securities and only banks lending are considered. Specifications (1), (3), and (5) are restricted to EA banking groups. Specifications (2), (4), and (6) are difference-in-differences specifications comparing EA to foreign banking groups. All specifications include lender fixed effects. Standard errors are clustered by lender and reported in parentheses. \sym{***}\,$p<0.01$, \sym{**}\,$p<0.05$, \sym{*}\,$p<0.1$.}}
+\label{tab:svb_impact_6m}
+\end{table}
+
+
+\begin{table}[h!]
+\centering
+\caption{Placebo test: SA-CCR Effect on Repo Maturity Structure}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]
+  S[table-format=-1.3, table-space-text-post={\sym{***}}]}
+\toprule
+ & {(1)} & {(2)} & {(3)} & {(4)} & {(5)} \\
+\textit{dep.\ var.:} & {ln(Maturity)} & {Below Floor} & {Short} & {Medium} & {Long} \\
+ & & {($\leq$ 10 days)} & {(10 days -- 1M)} & {(1M -- 3M)} & {(3M -- 12M)} \\
+\midrule
+USD $\times$ Post & 0.054 & 0.041 & -0.051 & -0.028 & 0.038 \\
+ & (0.161{)} & (0.039{)} & (0.050{)} & (0.038{)} & (0.043{)} \\
+USD & -0.027 & -0.036 & -0.053 & 0.107 & -0.019 \\
+ & (0.233{)} & (0.057{)} & (0.050{)} & (0.063{)} & (0.078{)} \\
+\midrule
+Borrower FE & {Y} & {Y} & {Y} & {Y} & {Y} \\
+Week FE & {Y} & {Y} & {Y} & {Y} & {Y} \\
+\midrule
+{Observations} & {3,105} & {3,105} & {3,105} & {3,105} & {3,105} \\
+{R$^2$} & {0.750} & {0.690} & {0.476} & {0.443} & {0.724} \\
+\bottomrule
+\end{tabular*}
+\par\vspace{0.5em}
+\caption*{\parbox{\textwidth}{Note: The dependent variable in Specification (1) is log maturity in business days. In Specifications (2)--(5) it is the share of transactions falling into each maturity bucket. `USD' equals one if a transaction is dollar-denominated. `Post' equals one from the week of \mbox{June 28, 2021} onward, when the Standardised Approach for Counterparty Credit Risk (SA-CCR) became applicable. The event window spans three months before and after the SA-CCR application date. The sample is restricted to bilateral, non-intragroup transactions collateralized by government securities. Only non-euro area borrowers operating domestically are considered. The bucket boundaries follow the SA-CCR maturity factor schedule. The ``below floor'' bucket corresponds to maturities at or below the 10-business-day floor, where the maturity factor is constant. All specifications include borrower and week fixed effects. Standard errors are two-way clustered by borrower and week and reported in parentheses. \sym{***}\,$p<0.01$, \sym{**}\,$p<0.05$, \sym{*}\,$p<0.1$.}}
+\label{tab:saccr_maturity_placebo}
+\end{table}
+
+
+\clearpage
+
+\begin{figure}[H]
+    \centering
+    \caption{Cash- versus collateral-driven transactions based on specialness}
+       \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \caption{\textbf{EUR}}
+        \includegraphics[width=\textwidth]{Charts/Appendix/EUR_cash_collateral_shares.png}
+        \label{fig:euro_cash_collateral}
+    \end{subfigure}
+       \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \caption{\textbf{USD}}
+        \includegraphics[width=\textwidth]{Charts/Appendix/USD_cash_collateral_shares.png}
+        \label{fig:dollar_cash_collateral}
+    \end{subfigure}
+    \par\vspace{0.5em}
+    \caption*{Note: A transaction with specific collateral and a repo rate that is at least 10 basis points below the deposit facility rate (EUR) or the interest on reserve balances (USD) is classified as collateral-driven. All other transactions with specific collateral are not considered here. A transaction with a general collateral basket is classified as cash-driven. All clearing types are considered. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}
+    \label{fig:cash-versus-collateral}
+\alttext{Two stacked area charts of the shares of cash-driven and collateral-driven transactions from January 2021 to April 2024. In euro repos, the cash-driven share stays at about 15 to 20 percent until 2023 and rises to about 25 to 30 percent thereafter. In dollar repos, the cash-driven share fluctuates between about 37 and 50 percent, with occasional spikes above 55 percent.}
+\end{figure}
+
+
+
+\begin{figure}[H]
+    \centering
+    \caption{The correlation of haircuts and repo rates in the cross section}
+       \begin{subfigure}[b]{0.85\textwidth}
+       \hspace{-75pt}
+        \centering
+        \includegraphics[width=\textwidth]{Charts/Fact 5/hc_rate_corr.png}
+        \label{fig:corr}
+        \vspace{-15pt}
+    \end{subfigure}
+    \vspace{-15pt}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Charts/legends/EUR_USD.png}
+    \end{subfigure}
+    \par\vspace{0.5em}
+    \caption*{\parbox{\textwidth}{Note: This chart shows the correlation between repo rates and haircuts for different subsets of bilateral transactions. All subsets are restricted to overnight transactions collateralized by government securities, except for the Collateral bars. The Overall bar shows the correlation across all transactions. The Intragroup bar shows the correlation in intragroup transactions. All other bars exclude intragroup transactions. The Net position bars split entities into net cash borrowers, net cash lenders, and those with a balanced portfolio. An entity is a net borrower if its cash borrowing volume exceeds 65\% of its total volume, and a net lender if its cash lending volume exceeds 65\% of its total volume. The Sector pair bars consider counterparty pairs, where the left label refers to the cash lender (collateral taker), and the right label refers to the cash borrower, (collateral provider). The Collateral bars show the correlation by collateral type. IF refers to investment funds. The sample period is \mbox{January 1, 2021} to \mbox{April 1, 2024}.}}
+    \label{fig:hc_rate_corr}
+\alttext{Horizontal bar chart of correlations between repo rates and haircuts in euro and dollar repos across transaction subsets. Correlations are small, mostly between minus 0.1 and plus 0.3; the overall correlation is about 0.12 for euro and 0.07 for dollar repos. Entities with balanced portfolios show negative correlations of about minus 0.3 for euro and minus 0.18 for dollar repos, while trades in which investment funds lend cash to dealers show positive correlations of about 0.15.}
+\end{figure}
+
+\clearpage 
+
+
+\end{document}
